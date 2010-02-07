@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title><%= page_title %></title>
+    <%= yield :html_head %>
+    
+    <%= stylesheet_link_tag "reset" %>
+    <%= stylesheet_link_tag "tool" %>
+    <%= stylesheet_link_tag "layout" %>
+    <%= stylesheet_link_tag "navigation" %>
+    <%= stylesheet_link_tag "pages" %>
+  </head>
+  <body style="margin: 0; padding: 0; text-align: center;">
+    <%= cms_toolbar %>
+    <div id="wrapper">
+      <div id="page">
+        <div id="header">
+          <a id="logo" href="/">DJ Conseil Patrimoine</a>
+        
+          <p id="catch">“ Des réponses personnalisées, une gestion sur mesure ”</p>
+        
+          <div id="mainnav" class="navigation">
+            <div class="line">&nbsp;</div>
+            <%= render_menu :depth => 10 %>
+          </div>
+        
+          <div id="breadcrumbs"><%= render_breadcrumbs %></div>
+        </div>
+      
+        <div id="lhs">
+          <div id="subnav" class="navigation">
+            <%= render_menu :depth => 2 %>
+          </div>
+        </div>
+        
+        <div id="body" class="page">
+          <h1><%= @page_title %></h1>
+
+          <!-- 
+          <p>Page id: <%= @page.id %></p>
+          <p>Page name: <%= @page.name %></p>
+
+          <code>
+            <%= @page.page_routes.inspect %>
+            <%= menu_items.inspect %>
+          </code>
+          <hr>
+          -->
+
+          <%= container :main %>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="footer_content">
+          <div class="right">
+            <p class="heading">
+              EURL DJ Conseil Patrimoine - Siège social
+            </p>
+            <p>
+              15 rue de Pange 57530 Colligny<br>
+              n° de gestion : 203 B 921<br>
+              code APE 741G - Assurance Rcp - Garanties financières
+            </p>
+          </div>
+          
+          <div class="left">
+            <p class="heading">
+              Membre de l'ONIIP - Office National Indépendant de l' Immobilier et du Patrimoine
+            </p>
+            <p>
+              Carte professionnelle : <br>
+              Transactions immobilières n°774 délivrée par la préfecture de Metz <br>
+              Conseil en investissements financiers agree n° E001870
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

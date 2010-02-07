@@ -1,0 +1,27 @@
+div.page {
+  color: #444;
+}
+
+div.page :first-child {
+  margin-top: 0;
+}
+
+div.page h1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #591e58;
+  margin: 20px 0;
+}
+
+div.page h2 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #591e58;
+  margin: 20px 0;
+}
+
+div.page p {
+  margin: 10px 0 10px 15px;
+  line-height: 15px;
+  color: #444;
+}

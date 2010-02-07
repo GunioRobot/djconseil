@@ -52,7 +52,7 @@ FCKeditor.BasePath = '/fckeditor/' ;
 /**
  * The minimum height used when replacing textareas.
  */
-FCKeditor.MinHeight = 200 ;
+FCKeditor.MinHeight = 400 ;
 
 /**
  * The minimum width used when replacing textareas.

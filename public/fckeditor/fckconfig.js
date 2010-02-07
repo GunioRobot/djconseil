@@ -150,11 +150,11 @@ FCKConfig.ContextMenu = ['Generic','Link','Anchor','Image','Flash','Select','Tex
 FCKConfig.BrowserContextMenuOnCtrl = false ;
 FCKConfig.BrowserContextMenu = false ;
 
-FCKConfig.EnableMoreFontColors = true ;
+FCKConfig.EnableMoreFontColors = false ;
 FCKConfig.FontColors = '000000,993300,333300,003300,003366,000080,333399,333333,800000,FF6600,808000,808080,008080,0000FF,666699,808080,FF0000,FF9900,99CC00,339966,33CCCC,3366FF,800080,999999,FF00FF,FFCC00,FFFF00,00FF00,00FFFF,00CCFF,993366,C0C0C0,FF99CC,FFCC99,FFFF99,CCFFCC,CCFFFF,99CCFF,CC99FF,FFFFFF' ;
 
-FCKConfig.FontFormats	= 'p;h1;h2;h3;h4;h5;h6;pre;address;div' ;
-FCKConfig.FontNames		= 'Arial;Comic Sans MS;Courier New;Tahoma;Times New Roman;Verdana' ;
+FCKConfig.FontFormats	= 'p;h1;h2;h3;h4;h5;h6;pre;address' ;
+FCKConfig.FontNames		= 'Arial' ;
 FCKConfig.FontSizes		= 'smaller;larger;xx-small;x-small;small;medium;large;x-large;xx-large' ;
 
 FCKConfig.StylesXmlPath		= FCKConfig.EditorPath + 'fckstyles.xml' ;
@@ -202,7 +202,7 @@ FCKConfig.RemoveAttributes = 'class,style,lang,width,height,align,hspace,valign'
 
 FCKConfig.CustomStyles =
 {
-	'Red Title'	: { Element : 'h3', Styles : { 'color' : 'Red' } }
+  // 'Red Title'  : { Element : 'h3', Styles : { 'color' : 'Red' } }
 };
 
 // Do not add, rename or remove styles here. Only apply definition changes.
@@ -337,14 +337,14 @@ FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/silver/' ;
 // Custom configuration for Basic CMS editor   (CMS-2)
 FCKConfig.ToolbarSets["CMS"] = [
 	['Source','-','Cut','Copy','Paste','PasteText','PasteWord','SpellCheck','-','Undo','Redo','Find','Replace','RemoveFormat','-','OrderedList','UnorderedList','Outdent','Indent','Rule'],
-	['Link','Unlink','Anchor','Image','Table','SpecialChar','-','Bold','Italic','Underline','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','-','TextColor','Style']
+	['Link','Unlink','Anchor','Image','Table','SpecialChar','-','Bold','Italic','Underline','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','-','FontFormat']
 
 ] ;
 
 // Custom configuration for Basic CMS Forms editor   (CMS-2)
 FCKConfig.ToolbarSets["CMSForms"] = [
 	['Source','-','Cut','Copy','Paste','PasteText','PasteWord','SpellCheck','-','Undo','Redo','Find','Replace','RemoveFormat','-','OrderedList','UnorderedList','Outdent','Indent','Rule'],
-	['Link','Unlink','Anchor','Image','Table','SpecialChar','Bold','Italic','Underline','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','TextColor','Style'],
+	['Link','Unlink','Anchor','Image','Table','SpecialChar','Bold','Italic','Underline','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','FontFormat'],
 	['TextField','Select','Checkbox','Radio','Textarea','Button','ImageButton','HiddenField']
 ] ;
 // @ END CMS CUSTOMIZATION

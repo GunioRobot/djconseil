@@ -50,6 +50,11 @@ a[href]
 	text-decoration: -moz-anchor-decoration;	/* For Firefox 3, otherwise no underline will be used */
 }
 
+h1, h2, h3, h4, h5, p {
+  border: 1px dotted #ccc;
+  padding: 5px;
+}
+
 /**
  * Just uncomment the following block if you want to avoid spaces between
  * paragraphs. Remember to apply the same style in your output front end page.
