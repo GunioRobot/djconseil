@@ -1,6 +1,7 @@
 .DS_Store
 db/schema.rb
 log/*.log
+tmp/restart.txt
 tmp/cache/*
 tmp/pids/*
 tmp/sessions/*
