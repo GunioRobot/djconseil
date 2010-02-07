@@ -44,3 +44,7 @@ div.clear {
   padding-left: 20px;
   list-style-type: disc;
 }
+
+.formatted a {
+  color: #591e58;
+}

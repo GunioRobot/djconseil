@@ -10,6 +10,7 @@ ul.news li.news-item h2 a,
 .news h2.more-news a {
   text-decoration: none;
   font-size: 14px;
+  color: #591e58;
 }
 
 .news h2.more-news {
