@@ -15,7 +15,7 @@ body {
   margin: 0 auto;
   text-align: left;
   position: relative;
-  padding-top: 180px;
+  padding-top: 175px;
   padding-bottom: 40px;
 }
 
@@ -24,7 +24,7 @@ body {
   top: 20px;
   left: 0;
   width: 100%;
-  height: 140px;
+  height: 135px;
 }
 
 #logo {
@@ -65,21 +65,34 @@ body {
   left: 0;
 }
 
+#breadcrumbs p,
+#breadcrumbs ul,
 #breadcrumbs li {
   float: left;
-  border-left: 1px solid #ccc;
-  padding-left: 5px;
   padding-right: 5px;
 }
 
-#breadcrumbs li.first {
-  border: 0;
+#breadcrumbs li {
+  background: url("/images/icons/djconseil/16/bullet_arrow_left_pink.png") 0 50% no-repeat;
+  padding-left: 21px;
 }
 
+#breadcrumbs li.first {
+  background: transparent;
+  padding-left: 0;
+}
+
+#breadcrumbs p,
 #breadcrumbs li,
 #breadcrumbs li a {
+  font-family: verdana;
+  font-size: 10px;
   text-decoration: none;
   color: #727272;
+}
+
+#breadcrumbs li a:hover {
+  text-decoration: underline;
 }
 
 #lhs {
@@ -92,6 +105,7 @@ body {
   background: white url("/images/layout/lhs/right.png") top left repeat-y;
   padding: 20px 20px 20px 30px;
   margin-left: 220px;
+  min-height: 350px;
 }
 
 #footer {

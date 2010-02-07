@@ -1,0 +1,46 @@
+div.clear {
+  clear: both;
+  font-size: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+}
+
+/* FORMATTED CONTENT */
+
+.formatted {
+  color: #444;
+}
+
+.formatted.block :first-child {
+  margin-top: 0;
+}
+
+.formatted h1,
+.h1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #591e58;
+  margin: 20px 0;
+}
+
+.formatted h2,
+.h2 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #591e58;
+  margin: 20px 0;
+}
+
+.formatted p,
+.formatted ul,
+.formatted li {
+  margin: 10px 0 10px 15px;
+  line-height: 15px;
+  color: #444;
+}
+
+.formatted ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
