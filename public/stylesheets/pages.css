@@ -20,8 +20,15 @@ div.page h2 {
   margin: 20px 0;
 }
 
-div.page p {
+div.page p,
+div.page ul,
+div.page li {
   margin: 10px 0 10px 15px;
   line-height: 15px;
   color: #444;
+}
+
+div.page ul {
+  padding-left: 20px;
+  list-style-type: disc;
 }
