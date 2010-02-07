@@ -1,0 +1,29 @@
+ul.news li.news-item span.release-date {
+  font-size: 10px;
+  font-weight: normal;
+  font-family: verdana;
+  color: #888;
+  padding-left: 10px;
+}
+
+ul.news li.news-item h2 a,
+.news h2.more-news a {
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.news h2.more-news {
+  margin-top: 30px;
+}
+
+ul.news li.news-item p.link {
+  margin-top: -10px;
+}
+
+ul.news ul.per-month li.month > ul {
+  margin-left: 20px;
+}
+
+ul.news ul.per-month li.month > h2 {
+  color: #666;
+}
