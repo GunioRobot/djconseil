@@ -133,9 +133,10 @@ font-size: 8pt;
 }
 .text_editor_fields textarea {
 height: 338px;
-width: 595px;
+width: 760px;
 margin-top: 10px;
 border: 1px solid #CCC;
+font-family: Courier;
 }
 .text_editor_fields .select_label {
 margin-left: 380px;
