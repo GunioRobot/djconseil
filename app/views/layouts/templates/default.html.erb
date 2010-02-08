@@ -5,6 +5,7 @@
     <title><%= page_title %></title>
     <%= yield :html_head %>
     
+    <%= render :partial => "layouts/shared/javascripts" %>
     <%= render :partial => "layouts/shared/stylesheets" %>
   </head>
   <body style="margin: 0; padding: 0; text-align: center;">
