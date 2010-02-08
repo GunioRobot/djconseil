@@ -18,6 +18,7 @@ role :app, "baal.igreg.info"
 role :web, "baal.igreg.info"
 role :db,  "baal.igreg.info", :primary => true
 
+before "deploy:symlink", "deploy:symlinks"
 before "deploy:symlink", "deploy:migrate"
 
 namespace :deploy do
