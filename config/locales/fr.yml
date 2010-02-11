@@ -29,11 +29,22 @@ fr:
       month_year: "%B %Y"
     am: "am" 
     pm: "pm"
-
+  
   # Used in array.to_sentence.
   support:
     array:
       sentence_connector: "et"
   
+  number:
+    format:
+      separator: ","
+      delimiter: "."
+      precision: 2
+    
+    currency:
+      format:
+        format: "%n %u"
+        unit: "€"
+    
   hello: "Hello world"
   

@@ -38,55 +38,91 @@
     </p>
   <% end %>
   
-  <%= submit_tag "Calculer" %>
+  <p><%= submit_tag "Calculer" %></p>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  var radioButtons = $$("#simulator_types input[type=radio]");
   
-  <p>
-    Mensualités: <%= @monthly_payment.round(2) %> €
-  </p>
+  radioButtons.each(function(field) {
+    field.observe('click', updateSimulatorFields);
+  })
   
-  <style type="text/css" media="screen">
-    table { text-align: right }
-    table td { padding: 5px; }
-  </style>
+  function updateSimulatorFields() {
+    var radioButton = $$("#simulator_types input[type=radio]").find(function(radioButton) { return radioButton.checked });
+    var cls  = "not_to_simulate_" + radioButton.value;
+    $$("#simulator_fields p").each(function(field) {
+      field.hasClassName(cls) ? field.hide() : field.show();
+    })
+  }
   
-  <table border="1">
+  updateSimulatorFields();
+</script>
+
+<% if @schedule.present? %>
+  <p><strong>Mensualités:</strong> <%= number_to_currency @monthly_payment %></p>
+  
+  <p><strong>Coût du crédit:</strong> <%= number_to_currency @mortgage_cost %></p>
+  
+  <table id="schedule" border="1">
     <thead>
       <tr>
         <td>Année</td>
-        <td>Total à payer</td>
-        <td>Capital amorti</td>
+        <td>Annuité</td>
         <td>Intérêts</td>
+        <td>Amortissement</td>
+        <td>Capital amorti</td>
         <td>Capital restant dû</td>
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td>0</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td><%= number_to_currency @capital %></td>
+      </tr>
       <% @schedule.each do |row| %>
         <tr>
-          <td><%= row[:year] %></td>
-          <td><%= row[:payment].round(2) %></td>
-          <td><%= row[:depreciation].round(2) %></td>
-          <td><%= row[:interest].round(2) %></td>
-          <td><%= row[:capital].round(2) %></td>
+          <td><%= row[:year] + 1 %></td>
+          <td><%= number_to_currency row[:payment].round(2) %></td>
+          <td><%= number_to_currency row[:interest].round(2) %></td>
+          <td><%= number_to_currency row[:depreciation].round(2) %></td>
+          <td><%= number_to_currency row[:deprecated].round(2) %></td>
+          <td><%= number_to_currency row[:capital].round(2) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  
-  <script type="text/javascript" charset="utf-8">
-    var radioButtons = $$("#simulator_types input[type=radio]");
-    
-    radioButtons.each(function(field) {
-      field.observe('click', updateSimulatorFields);
-    })
-    
-    function updateSimulatorFields() {
-      var radioButton = $$("#simulator_types input[type=radio]").find(function(radioButton) { return radioButton.checked });
-      var cls  = "not_to_simulate_" + radioButton.value;
-      $$("#simulator_fields p").each(function(field) {
-        field.hasClassName(cls) ? field.hide() : field.show();
-      })
-    }
-    
-    updateSimulatorFields();
-  </script>
 <% end %>
+
+<style type="text/css" media="screen">
+  fieldset {
+    border: 1px solid #C2B8B8;
+    background: #E6DBDB;
+    margin-bottom: 10px;
+  }
+  
+  fieldset legend {
+    font-weight: bold;
+    font-size: 13px;
+    color: #591e58;
+    margin-left: 15px;
+  }
+  
+  #simulator_fields label {
+    float: left;
+    line-height: 20px;
+    width: 200px;
+    text-align: right;
+    padding-right: 5px;
+  }
+  
+  #simulator_fields input {
+    width: 60px;
+  }
+  
+  table#schedule { text-align: right }
+</style>

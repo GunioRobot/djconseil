@@ -45,6 +45,22 @@ div.clear {
   list-style-type: disc;
 }
 
+.formatted fieldset,
+.formatted table {
+  margin: 10px 0 10px 15px;
+}
+
+.formatted table thead td {
+  font-weight: bold;
+  color: #591e58;
+  border-bottom: 1px solid;
+  padding: 0 5px;
+}
+
+.formatted table tbody td {
+  padding: 5px;
+}
+
 .formatted a {
   color: #591e58;
 }
