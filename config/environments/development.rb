@@ -16,3 +16,13 @@ config.action_controller.perform_caching             = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 SITE_DOMAIN="localhost:3000"
+
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.raise_delivery_errors = true
+ActionMailer::Base.smtp_settings = {
+  :address => "smtp.djconseil.fr",
+  :port => 587,
+  :user_name => "contact@djconseil.fr",
+  :password => "djconse1l",
+  :authentication  => :login
+}

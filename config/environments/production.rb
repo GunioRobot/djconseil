@@ -29,3 +29,13 @@ config.action_view.cache_template_loading            = true
 SITE_DOMAIN="localhost:3000"
 config.action_view.cache_template_loading = false
 config.action_controller.page_cache_directory = RAILS_ROOT + "/public/cache/"
+
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.raise_delivery_errors = true
+ActionMailer::Base.smtp_settings = {
+  :address => "smtp.djconseil.fr",
+  :port => 587,
+  :user_name => "contact@djconseil.fr",
+  :password => "djconse1l",
+  :authentication  => :login
+}

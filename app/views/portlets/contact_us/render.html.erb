@@ -1,0 +1,76 @@
+<% form_tag do %>
+  <% field_set_tag "Formulaire de contact :", :id => "contact_us" do %>
+    <% if @sent %>
+      <p class="success">Votre message a été envoyé avec succès.</p>
+    <% end %>
+    
+    <% if @error %>
+      <p class="error">Veuillez renseigner tous les champs avant d'envoyer votre message.</p>
+    <% end %>
+    
+    <p>
+      <%= label_tag :name, "Votre nom:" %>
+      <%= text_field_tag :name, params[:name] %>
+    </p>
+    
+    <p>
+      <%= label_tag :from, "Votre addresse email:" %>
+      <%= text_field_tag :from, params[:from] %>
+    </p>
+    
+    <p>
+      <%= label_tag :message, "Votre message:" %>
+      <%= text_area_tag :message, params[:message] %>
+    </p>
+    
+    <p style="padding-left:120px"><%= submit_tag "Envoyer" %></p>
+  <% end %>
+<% end %>
+
+<style type="text/css" media="screen">
+  fieldset {
+    border: 1px solid #C2B8B8;
+    background: #E6DBDB;
+    margin-bottom: 10px;
+  }
+  
+  fieldset legend {
+    font-weight: bold;
+    font-size: 13px;
+    color: #591e58;
+    margin-left: 15px;
+  }
+  
+  #contact_us label {
+    float: left;
+    line-height: 24px;
+    width: 120px;
+    text-align: right;
+    padding-right: 5px;
+  }
+  
+  #contact_us input,
+  #contact_us textarea {
+    font-size: 12px;
+  }
+  
+  #contact_us input {
+    width: 200px;
+  }
+  
+  #contact_us textarea {
+    width: 500px;
+    height: 250px;
+    padding: 5px;
+  }
+  
+  #contact_us p.success {
+    color: green;
+    font-weight: bold;
+  }
+  
+  #contact_us p.error {
+    color: red;
+    font-weight: bold;
+  }
+</style>
