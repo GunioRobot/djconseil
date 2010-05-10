@@ -1,0 +1,73 @@
+ActionMailer::Queue
+===================
+
+Store emails into ActiveRecord
+
+Author
+======
+
+Andrew Beam
+KRAXNET s.r.o.
+
+Example
+=======
+
+class Notification < ActionMailer::Queue
+  
+  def test
+  end
+
+end
+
+New mail
+--------
+mail = Notification.deliver_test
+mail.class # => TMail::Mail
+mail.queue_id # => 1
+
+Notification.queue # => ActionMailer::Queue::Store => ActiveRecord::Base
+
+Deliver mail
+------------
+mail = Notification.queue.find(1)
+mail.class # => ActionMailer::Queue::Store
+mail.deliver! # => false || TMail::Mail
+
+if mail.deliver! == false 
+  mail.last_error # String (Error.to_s) 
+  mail.last_attempt_at # Datetime
+  mail.tries # => 1
+else 
+  mail.sent # => true
+  mail.message_id # String
+  mail.sent_at # Datetime
+end
+
+Process queue
+-------------
+Notification.queue.process! # { :limit => 100 } use scope for_send and with_processing_rules
+
+
+Settings
+--------
+ActionMailer::Queue.delivery_method = :action_mailer_queue
+
+ActionMailer::Queue.limit_for_processing = 100
+# - limit for Notification.queue.process!
+
+ActionMailer::Queue.max_tries_in_process = 5
+# - trying send mail only X times (with delay between attempt)
+
+ActionMailer::Queue.delay_between_attempt_in_process = 240 # [minutes]
+# - delay between attempt after previous attempt failed
+
+ActionMailer::Queue.destroy_message_after_deliver = false
+# - delete message from database after mail deliver
+
+Queue scopes
+------------
+Notification.queue.for_send # emails for send
+Notification.queue.already_sent # emails already sent
+Notification.queue.with_processing_rules # apply processing rules
+Notification.queue.with_error # emails with more tries
+Notification.queue.without_error # emails with 0 tries
