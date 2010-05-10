@@ -48,6 +48,27 @@ body {
   color: #525252;
 }
 
+#contact_links {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  
+  font-family: Georgia;
+  line-height: 24px;
+  font-size: 16px;
+  color: #525252;
+}
+
+#contact_links strong {
+  display: block;
+  padding-bottom: 5px;
+  font-style: italic;
+}
+
+#contact_links img {
+  vertical-align: baseline;
+}
+
 #mainnav {
   position: absolute;
   top: 78px;
