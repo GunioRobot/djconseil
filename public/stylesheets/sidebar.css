@@ -1,0 +1,23 @@
+#lhs #latest_news {
+  border-top: 2px solid #AF76A9;
+  margin: 5px 15px 5px 0;
+  margin-top: 10px;
+}
+
+#lhs #subnav > #latest_news {
+  
+}
+
+#lhs #latest_news h2 {
+  font-size: 16px;
+  margin: 10px 0;
+  padding-left: 5px;
+}
+
+
+#lhs #latest_news p {
+  padding-left: 5px;
+  margin: 10px 0;
+  line-height: 16px;
+  color: #555;
+}
