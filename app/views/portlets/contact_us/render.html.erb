@@ -9,18 +9,49 @@
     <% end %>
     
     <p>
-      <%= label_tag :name, "Votre nom:" %>
+      <label>&nbsp;</label>
+      <span class="required">*</span> champs requis
+    </p>
+    
+    <p>
+      <%= label_tag :name, "Nom" %>
+      <span class="required">*</span>
       <%= text_field_tag :name, params[:name] %>
     </p>
     
     <p>
-      <%= label_tag :from, "Votre addresse email:" %>
+      <%= label_tag :from, "Nº de Tél" %>
+      <span class="required">*</span>
       <%= text_field_tag :from, params[:from] %>
     </p>
     
     <p>
-      <%= label_tag :message, "Votre message:" %>
+      <%= label_tag :from, "Votre addresse email" %>
+      <span class="required">*</span>
+      <%= text_field_tag :from, params[:from] %>
+    </p>
+    
+    <p>
+      <%= label_tag :from, "Votre projet/souhait" %>
+      <ul class="options">
+        <li><%= check_box_tag :project, params[:from] %> Conseils
+        <li><%= check_box_tag :project, params[:from] %> Analyse patrimoniale
+        <li><%= check_box_tag :project, params[:from] %> Assurance vie
+        <li><%= check_box_tag :project, params[:from] %> Immobilier
+        <li><%= check_box_tag :project, params[:from] %> Simulation immobilière
+        <li><%= check_box_tag :project, params[:from] %> Obtenir un rendez-vous
+        <li><%= check_box_tag :project, params[:from] %> Autre
+      </ul>
+    </p>
+    
+    <p>
+      <%= label_tag :message, "Commentaires" %>
       <%= text_area_tag :message, params[:message] %>
+    </p>
+    
+    <p>
+      <label>&nbsp;</label>
+      <%= check_box_tag :newsletter, params[:newsletter] %> Je souhaire recevoir les informations fiscales et commerciales de DJ Conseil Patrimoine
     </p>
     
     <p style="padding-left:120px"><%= submit_tag "Envoyer" %></p>
@@ -58,6 +89,15 @@
     width: 200px;
   }
   
+  #contact_us input[type="checkbox"] {
+    width: auto;
+  }
+  
+  #contact_us ul.options li {
+    list-style-type: none;
+    margin-left: 110px;
+  }
+  
   #contact_us textarea {
     width: 500px;
     height: 250px;
@@ -70,6 +110,11 @@
   }
   
   #contact_us p.error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  #contact_us span.required {
     color: red;
     font-weight: bold;
   }
