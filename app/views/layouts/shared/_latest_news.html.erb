@@ -3,4 +3,5 @@
 <div id="latest_news">
   <h2><%= @latest_article.name %></h2>
   <p><%= @latest_article.summary.gsub("\n","<br/>") %></p>
+  <p class="more"><%= link_to "Lire la suite", news_article_path(@latest_article.route_params) %></p>
 </div>
