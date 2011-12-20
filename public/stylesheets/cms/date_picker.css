@@ -39,7 +39,7 @@ td.ui-datepicker-days-cell-over {
 
 td.ui-datepicker-current-day {
   background: #CADCF4;
-} 
+}
 
 table tr.ui-datepicker-title-row td {
   font-weight: bold;
@@ -57,11 +57,11 @@ margin-bottom: 5px;
   background: url(/images/cms/datepicker/close.gif) no-repeat 4px 2px;
 }
 
-.ui-datepicker-prev, .ui-datepicker-next, .ui-datepicker-current { 
+.ui-datepicker-prev, .ui-datepicker-next, .ui-datepicker-current {
   display: none;
 }
 
-.ui-datepicker-header { 
+.ui-datepicker-header {
   clear: left;
   }
 .ui-datepicker-new-month {

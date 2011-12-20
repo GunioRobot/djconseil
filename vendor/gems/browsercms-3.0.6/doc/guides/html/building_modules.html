@@ -13,28 +13,28 @@
         margin: 0;
         padding: 0;
       }
-  
+
       #page {
         margin: 0 auto;
         text-align: left;
         width: 1000px;
       }
-  
+
       #header {
         height: 110px;
       }
-  
+
       div.top_cap {
         background: transparent url(images/top_cap.png) no-repeat scroll 0 0;
         height: 10px;
-      }    
-  
+      }
+
       #contentwrap {
         background: transparent url(images/dot.png) repeat scroll 0 0;
         float: left;
         width: 1000px;
       }
-      
+
       div.bottom_cap {
         background: transparent url(images/bottom_cap.png) no-repeat scroll 0 0;
         height: 9px;
@@ -44,17 +44,17 @@
         background: transparent url(images/top_cap_content.png) no-repeat scroll 0 0;
         height: 5px;
       }
-  
+
       #content {
         background-color: #FFFFFF;
         margin: 0 5px;
         padding: 0 10px;
       }
-  
+
       div.title {
         padding: 20px;
       }
-  
+
       div.title h1 {
         border-bottom: 3px solid #505358;
         color: #FFFFFF;
@@ -64,35 +64,35 @@
         margin: 0 0 10px;
         padding-bottom: 10px;
       }
-      
+
       td.sidebar {
         font-size: 8pt;
         width: 165px;
         padding: 5px;
       }
-      
+
       td.sidebar ol {
         margin-left: 20px;
         padding: 0;
         line-height: 1.5;
       }
-      
+
       td.sidebar ol li {
         margin: 0;
         padding: 0;
       }
-      
+
       td.sidebar ol li ul {
         list-style-type: none;
         padding-left: 10px;
       }
-      
+
       td.guides {
         font-size: 10pt;
         width: 800px;
         padding: 10px;
       }
-      
+
       .code_container {
         padding: 10px;
         background: #eee;
@@ -100,12 +100,12 @@
         overflow: auto;
         width: 760px;
       }
-      
+
       pre, code {
         overflow: auto;
-        white-space:pre;        
+        white-space:pre;
       }
-      
+
     </style>
   </head>
   <body>
@@ -122,7 +122,7 @@
           <div class="top_cap_content"></div>
           <div id="content">
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
-              <tr>                
+              <tr>
                 <td class="sidebar" valign="top">
                         <div id="subCol">
         <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
@@ -130,7 +130,7 @@
 </ol></div>
                 </td>
                 <td class="guides">
-                  
+
                   <h2>Using <span class="caps">CMS</span> Authentication</h2>
 <p>When you create public controllers, you may want to take advantage of the <span class="caps">CMS</span> authentication system. Create an action that
 looks like this:</p>
@@ -155,7 +155,7 @@ end</code></div>
 Many visitors to a <span class="caps">CMS</span> site will not be logged in. These users are considered to be members of a special group, called &#8216;Guest&#8217;. This
 group allows staff to set permissions for denying entry to specific sections. When you call the following:</h3>
 <div class="code_container"><code class="ruby">user = current_user</code></div>
-<p>if there the user is not logged in, a 
+<p>if there the user is not logged in, a
 dirty_workaround_for_notextile_2
  object will be returned. This user has all the permissions of the guest group, which are
 usually limited to viewing public sections.</p>

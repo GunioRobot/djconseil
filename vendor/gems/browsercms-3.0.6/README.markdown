@@ -7,7 +7,7 @@ BrowserCMS is a general purpose, open source Web Content Management System (CMS)
 3. Developers who want to drop a CMS into their Rails projects, or create CMS driven websites for their clients.
 
 ## Features
-BrowserCMS is intended to offer features comparable to commercial CMS products, which can support larger teams of editors. This means having a robust set of features as part of its core, as well as the capability to customize it via modules. 
+BrowserCMS is intended to offer features comparable to commercial CMS products, which can support larger teams of editors. This means having a robust set of features as part of its core, as well as the capability to customize it via modules.
 
 Here's a quick overview of some of the more notable features:
 

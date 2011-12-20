@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.connect '/simulateurs/:action', :controller => 'simulators'
-  
+
   map.routes_for_bcms_news
   map.routes_for_browser_cms
 
@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+
   # Sample resource route with more complex sub-resources
   #   map.resources :products do |products|
   #     products.resources :comments

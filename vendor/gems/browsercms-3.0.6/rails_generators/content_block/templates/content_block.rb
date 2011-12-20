@@ -1,10 +1,10 @@
 class <%= class_name %> < ActiveRecord::Base
   acts_as_content_block
-  <% for attribute in attributes %><%= 
+  <% for attribute in attributes %><%=
     case attribute.type
     when :attachment
       %Q{belongs_to_attachment
-        
+
         def set_attachment_file_path
           # The default behavior is use /attachments/file.txt for the attachment path,
           # assuming file.txt was the name of the file the user uploaded

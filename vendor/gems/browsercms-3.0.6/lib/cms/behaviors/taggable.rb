@@ -4,21 +4,21 @@ module Cms
       def self.included(model_class)
         model_class.extend(MacroMethods)
       end
-      module MacroMethods      
+      module MacroMethods
         def taggable?
           !!@is_taggable
         end
         def is_taggable(options={})
           @is_taggable = true
           @tag_separator = options[:separator] || " "
-          
+
           has_many :taggings, :as => :taggable
-          has_many :tags, :through => :taggings, :order => "tags.name"                    
-          
-          named_scope :tagged_with, lambda{|t| {:include => {:taggings => :tag}, :conditions => ["tags.name = ?", t]} }          
-                    
-          after_save :save_tags          
-                    
+          has_many :tags, :through => :taggings, :order => "tags.name"
+
+          named_scope :tagged_with, lambda{|t| {:include => {:taggings => :tag}, :conditions => ["tags.name = ?", t]} }
+
+          after_save :save_tags
+
           extend ClassMethods
           include InstanceMethods
         end

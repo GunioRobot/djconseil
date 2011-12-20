@@ -8,16 +8,16 @@
           $('#section-action').text('view')
         } else {
           $('#permissions').show()
-          $('#section-action').text('edit')          
+          $('#section-action').text('edit')
         }
-      }).change()      
+      }).change()
     });
   <% end %>
 <% end %>
 <div id="permissions">
   <div class="checkbox_group">
     <label>Global Permissions</label>
-    <%= hidden_field_tag "group[permission_ids][]", "" %>  
+    <%= hidden_field_tag "group[permission_ids][]", "" %>
     <div class="checkboxes">
     <% Permission.all(:order => "name").each do |p| %>
       <div class="checkbox_fields">
@@ -27,7 +27,7 @@
       <div class="instructions"><%=h p.description %></div>
     <% end %>
     <div class="check_uncheck">
-  	  <%= link_to_check_all 'input.permission_ids' %>, 
+  	  <%= link_to_check_all 'input.permission_ids' %>,
   	  <%= link_to_uncheck_all 'input.permission_ids' %>
     </div>
   </div>

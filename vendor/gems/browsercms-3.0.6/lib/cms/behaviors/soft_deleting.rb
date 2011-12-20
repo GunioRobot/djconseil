@@ -4,13 +4,13 @@ module Cms
       def self.included(model_class)
         model_class.extend(MacroMethods)
       end
-      module MacroMethods      
+      module MacroMethods
         def uses_soft_delete?
           !!@uses_soft_delete
         end
         def uses_soft_delete(options={})
           @uses_soft_delete = true
-        
+
           named_scope :not_deleted, :conditions => ["#{table_name}.deleted = ?", false]
           class << self
             alias_method :find_with_deleted, :find
@@ -18,7 +18,7 @@ module Cms
             alias_method :delete_all!, :delete_all
           end
           alias_method :destroy_without_callbacks!, :destroy_without_callbacks
-        
+
           extend ClassMethods
           include InstanceMethods
         end
@@ -40,7 +40,7 @@ module Cms
             conditions = {:conditions => {:id => id_or_conditions}}
           end
           count(conditions) > 0
-        end      
+        end
       end
       module InstanceMethods
         #Overrides original destroy method
@@ -70,7 +70,7 @@ module Cms
 
         def destroyed?
           @destroyed
-        end        
+        end
       end
     end
   end

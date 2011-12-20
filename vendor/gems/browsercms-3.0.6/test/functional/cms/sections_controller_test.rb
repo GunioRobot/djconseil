@@ -2,45 +2,45 @@ require File.join(File.dirname(__FILE__), '/../../test_helper')
 
 class Cms::SectionsControllerTest < ActionController::TestCase
   include Cms::ControllerTestHelper
-  
+
   def setup
     login_as_cms_admin
   end
-  
+
   def test_edit
     get :edit, :id => root_section.to_param
     assert_response :success
     assert_select "input[name=?][value=?]", "section[name]", root_section.name
   end
-  
+
   test "GET new should set the groups to the parent section's groups by default" do
     @group = Factory(:group, :name => "Test", :group_type => Factory(:group_type, :name => "CMS User", :cms_access => true))
     get :new, :section_id => root_section.to_param
     assert_equal root_section.groups, assigns(:section).groups
     assert !assigns(:section).groups.include?(@group)
   end
-  
+
   def test_update
     @section = Factory(:section, :name => "V1", :parent => root_section, :groups => root_section.groups)
-    
+
     put :update, :id => @section.to_param, :section => {:name => "V2"}
     reset(:section)
-    
+
     assert_redirected_to [:cms, @section]
     assert_equal "V2", @section.name
     assert_equal "Section 'V2' was updated", flash[:notice]
-  end  
-  
+  end
+
 end
 
 class Cms::SectionFileBrowserControllerTest < ActionController::TestCase
   tests Cms::SectionsController
   include Cms::ControllerTestHelper
-  
+
   def setup
     login_as_cms_admin
   end
-  
+
   def test_root_section
     @foo = Factory(:section, :parent => root_section, :name => "Foo", :path => '/foo')
     @bar = Factory(:section, :parent => root_section, :name => "Bar", :path => '/bar')
@@ -61,7 +61,7 @@ class Cms::SectionFileBrowserControllerTest < ActionController::TestCase
       end
     end
   end
-  
+
   def test_sub_section
     @foo = Factory(:section, :parent => root_section, :name => "Foo", :path => '/foo')
     @bar = Factory(:section, :parent => @foo, :name => "Bar", :path => '/foo/bar')
@@ -81,13 +81,13 @@ class Cms::SectionFileBrowserControllerTest < ActionController::TestCase
       end
     end
   end
-  
+
 end
 
 class Cms::SectionsControllerPermissionsTest < ActionController::TestCase
   tests Cms::SectionsController
   include Cms::ControllerTestHelper
-  
+
   def setup
     # DRYME copypaste from UserPermissionTest
     @user = Factory(:user)
@@ -95,7 +95,7 @@ class Cms::SectionsControllerPermissionsTest < ActionController::TestCase
     @group.permissions << create_or_find_permission_named("edit_content")
     @group.permissions << create_or_find_permission_named("publish_content")
     @user.groups << @group
-    
+
     @editable_section = Factory(:section, :parent => root_section, :name => "Editable")
     @editable_subsection = Factory(:section, :parent => @editable_section, :name => "Editable Subsection")
     @group.sections << @editable_section
@@ -103,14 +103,14 @@ class Cms::SectionsControllerPermissionsTest < ActionController::TestCase
     @editable_subpage = Factory(:page, :section => @editable_subsection, :name => "Editable SubPage")
     @editable_link = Factory(:link, :section => @editable_section, :name => "Editable Link")
     @editable_sublink = Factory(:link, :section => @editable_subsection, :name => "Editable SubLink")
-    
+
     @noneditable_section = Factory(:section, :parent => root_section, :name => "Not Editable")
     @noneditable_page = Factory(:page, :section => @noneditable_section, :name => "Non-Editable Page")
     @noneditable_link = Factory(:link, :section => @noneditable_section, :name => "Non-Editable Link")
-    
+
     @noneditables = [@noneditable_section, @noneditable_page, @noneditable_link]
-    @editables = [@editable_section, @editable_subsection, 
-      @editable_page, @editable_subpage, 
+    @editables = [@editable_section, @editable_subsection,
+      @editable_page, @editable_subpage,
       @editable_link, @editable_sublink]
   end
 
@@ -124,7 +124,7 @@ class Cms::SectionsControllerPermissionsTest < ActionController::TestCase
     assert_response 403
     assert_template "cms/shared/access_denied"
   end
-  
+
   test "POST create should set the groups to the parent section's groups for non-admin user" do
     @group = Factory(:group, :name => "Test", :group_type => Factory(:group_type, :name => "CMS User", :cms_access => true))
     login_as(@user)
@@ -165,7 +165,7 @@ class Cms::SectionsControllerPermissionsTest < ActionController::TestCase
     assert_response 403
     assert_template "cms/shared/access_denied"
   end
-  
+
   def test_update_permissions_of_subsection
     login_as(@user)
 
@@ -176,7 +176,7 @@ class Cms::SectionsControllerPermissionsTest < ActionController::TestCase
     assert_response 403
     assert_template "cms/shared/access_denied"
   end
-  
+
   test "PUT update should leave groups alone for non-admin user" do
     @group2 = Factory(:group, :name => "Test", :group_type => Factory(:group_type, :name => "CMS User", :cms_access => true))
     expected_groups = @editable_section.groups

@@ -5,15 +5,15 @@ class PageTemplate < DynamicView
   def file_path
     File.join(self.class.file_path, file_name)
   end
-  
+
   def self.relative_path
     File.join("layouts", "templates")
   end
-  
+
   def self.file_path
     File.join(base_path, relative_path)
   end
-  
+
   def self.default_body
     html = <<HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -31,18 +31,18 @@ class PageTemplate < DynamicView
 HTML
     html
   end
-  
+
   def self.display_name(file_name)
     name, format, handler = file_name.split('.')
     "#{name.titleize} (#{format}/#{handler})"
   end
-  
-  # This is a combination of file system page templates 
+
+  # This is a combination of file system page templates
   # and database page templates
   def self.options
     file_system_templates = ActionController::Base.view_paths.map{|p| Dir["#{p}/#{relative_path}/*"]}.flatten.map{|f| File.basename(f)}
     page_templates = file_system_templates + all.map{|t| t.file_name }
     page_templates.map{|f| [display_name(f), f] }.sort.uniq
   end
-  
+
 end

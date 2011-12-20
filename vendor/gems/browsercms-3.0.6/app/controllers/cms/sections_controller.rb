@@ -3,7 +3,7 @@ class Cms::SectionsController < Cms::BaseController
   before_filter :load_parent, :only => [:new, :create]
   before_filter :load_section, :only => [:edit, :update, :destroy, :move]
   before_filter :set_toolbar_tab
-  
+
   helper_method :public_groups
   helper_method :cms_groups
 
@@ -14,12 +14,12 @@ class Cms::SectionsController < Cms::BaseController
   def show
     redirect_to cms_sitemap_path
   end
-  
+
   def new
     @section = @parent.sections.build
     @section.groups = @parent.groups
   end
-  
+
   def create
     @section = Section.new(params[:section])
     @section.parent = @parent
@@ -29,12 +29,12 @@ class Cms::SectionsController < Cms::BaseController
       redirect_to [:cms, @section]
     else
       render :action => 'new'
-    end    
+    end
   end
 
   def edit
   end
-  
+
   def update
     params[:section].delete('group_ids') if params[:section] &&  !current_user.able_to?(:administrate)
     @section.attributes = params[:section]
@@ -43,9 +43,9 @@ class Cms::SectionsController < Cms::BaseController
       redirect_to [:cms, @section]
     else
       render :action => 'edit'
-    end      
+    end
   end
-  
+
   def destroy
     respond_to do |format|
       if @section.deletable? && @section.destroy
@@ -58,8 +58,8 @@ class Cms::SectionsController < Cms::BaseController
         format.json { render :json => {:success => false, :message => message } }
       end
     end
-  end  
-  
+  end
+
   def move
     if params[:section_id]
       @move_to = Section.find(params[:section_id])
@@ -67,8 +67,8 @@ class Cms::SectionsController < Cms::BaseController
       @move_to = Section.root.first
     end
   end
-  
-  def file_browser              
+
+  def file_browser
     @section = Section.find_by_name_path(params[:CurrentFolder])
     if request.post? && params[:NewFile]
       handle_file_browser_upload
@@ -76,7 +76,7 @@ class Cms::SectionsController < Cms::BaseController
       render_file_browser
     end
   end
-  
+
   protected
     def load_parent
       @parent = Section.find(params[:section_id])
@@ -93,22 +93,22 @@ class Cms::SectionsController < Cms::BaseController
         case params[:Type].downcase
         when "file"
           FileBlock.create!(:section => @section, :file => params[:NewFile])
-        when "image" 
+        when "image"
           ImageBlock.create!(:section => @section, :file => params[:NewFile])
         end
         result = "0"
       rescue Exception => e
         result = "1,'#{escape_javascript(e.message)}'"
-      end  
-      render :text => %Q{<script type="text/javascript">window.parent.frames['frmUpload'].OnUploadCompleted(#{result});</script>}, :layout => false      
+      end
+      render :text => %Q{<script type="text/javascript">window.parent.frames['frmUpload'].OnUploadCompleted(#{result});</script>}, :layout => false
     end
-    
+
     def render_file_browser
       headers['Content-Type'] = "text/xml"
       @files = case params[:Type].downcase
                when "file"
                  FileBlock.by_section(@section)
-               when "image" 
+               when "image"
                  ImageBlock.by_section(@section)
                else
                  @section.pages

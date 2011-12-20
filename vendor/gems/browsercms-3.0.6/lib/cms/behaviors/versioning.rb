@@ -4,7 +4,7 @@ module Cms
       def self.included(model_class)
         model_class.extend(MacroMethods)
       end
-      module MacroMethods      
+      module MacroMethods
         def versioned?
           !!@is_versioned
         end
@@ -24,7 +24,7 @@ module Cms
           attr_accessor :revert_to_version
 
           #Define the version class
-          const_set("Version", Class.new(ActiveRecord::Base)).class_eval do 
+          const_set("Version", Class.new(ActiveRecord::Base)).class_eval do
             class << self; attr_accessor :versioned_class end
 
             def versioned_class
@@ -35,7 +35,7 @@ module Cms
             end
             def versioned_object
               send(versioned_class.name.underscore.to_sym)
-            end                 
+            end
           end
 
           version_class.versioned_class = self
@@ -46,27 +46,27 @@ module Cms
 
         end
       end
-      module ClassMethods        
+      module ClassMethods
         def version_class
           const_get "Version"
         end
 
         def version_class_name
           "#{name}::Version"
-        end        
+        end
 
         def version_foreign_key
           @version_foreign_key
         end
 
-        def version_table_name        
+        def version_table_name
           @version_table_name
         end
 
         def versioned_columns
-          @versioned_columns ||= (version_class.new.attributes.keys - 
+          @versioned_columns ||= (version_class.new.attributes.keys -
             (%w[id lock_version position version_comment created_at updated_at created_by_id updated_by_id type] + [version_foreign_key]))
-        end                   
+        end
       end
       module InstanceMethods
         def initialize_version
@@ -83,7 +83,7 @@ module Cms
           end
 
           attrs[:version_comment] = @version_comment || default_version_comment
-          @version_comment = nil            
+          @version_comment = nil
           new_version = versions.build(attrs)
           new_version.version = new_record? ? 1 : (draft.version.to_i + 1)
           after_build_new_version(new_version) if respond_to?(:after_build_new_version)
@@ -95,7 +95,7 @@ module Cms
           # Otherwise we need to use the draft
           d = new_record? ? self : draft
           self.class.versioned_columns.inject({}){|attrs, col| attrs[col] = d.send(col); attrs }
-        end 
+        end
 
         def default_version_comment
           if new_record?
@@ -108,22 +108,22 @@ module Cms
         def save(perform_validations=true)
           transaction do
             #logger.info "..... Calling valid?"
-            return false unless !perform_validations || valid?            
-            
+            return false unless !perform_validations || valid?
+
             if different_from_last_draft?
               #logger.info "..... Changes => #{changes.inspect}"
             else
               #logger.info "..... No Changes"
               return true
             end
-            
+
             #logger.info "..... Calling before_save"
             return false if callback(:before_save) == false
 
             if new_record?
               #logger.info "..... Calling before_create"
               return false if callback(:before_create) == false
-            else      
+            else
               #logger.info "..... Calling before_update"
               return false if callback(:before_update) == false
             end
@@ -140,12 +140,12 @@ module Cms
                   #logger.info "..... Calling after_save"
                   callback(:after_save)
                 end
-                
+
                 if @publish_on_save
                   publish
                   @publish_on_save = nil
-                end                
-                changed_attributes.clear                                   
+                end
+                changed_attributes.clear
               end
               result
             elsif new_version
@@ -156,11 +156,11 @@ module Cms
                   #logger.info "..... Calling after_update"
                   callback(:after_save)
                 end
-                
+
                 if @publish_on_save
                   publish
                   @publish_on_save = nil
-                end 
+                end
                 changed_attributes.clear
               end
               result
@@ -174,13 +174,13 @@ module Cms
         end
 
         def draft
-          versions.first(:order => "version desc")    
+          versions.first(:order => "version desc")
         end
-        
+
         def draft_version?
           version == draft.version
         end
-        
+
         def live_version
           find_version(self.class.find(id).version)
         end
@@ -192,7 +192,7 @@ module Cms
         def current_version
           find_version(self.version)
         end
-        
+
         def find_version(number)
           versions.first(:conditions => { :version => number })
         end
@@ -223,7 +223,7 @@ module Cms
             changed_attrs.clear
           end
 
-          obj      
+          obj
         end
 
         def revert
@@ -237,15 +237,15 @@ module Cms
           raise "Could not find version #{version}" unless revert_to_version
           (self.class.versioned_columns - ["version"]).each do |a|
             send("#{a}=", revert_to_version.send(a))
-          end  
+          end
           self.version_comment = "Reverted to version #{version}"
-          self            
-        end    
+          self
+        end
 
         def revert_to(version)
           revert_to_without_save(version)
           save
-        end    
+        end
 
         def version_comment
           @version_comment

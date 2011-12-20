@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '/../../test_helper')
 
 class Cms::ApplicationHelperTest < ActionView::TestCase
-  
+
   def test_url_with_mode
     [
       [["http://localhost:3000", "edit"], "?mode=edit"],
@@ -16,7 +16,7 @@ class Cms::ApplicationHelperTest < ActionView::TestCase
       assert_equal expected, url_with_mode(*args)
     end
   end
-  
+
   def test_determine_order
     assert_equal "foo", determine_order("foo desc", "foo desc")
     assert_equal "foo", determine_order("foo desc", "foo")
@@ -25,7 +25,7 @@ class Cms::ApplicationHelperTest < ActionView::TestCase
     assert_equal "bar desc", determine_order("foo", "bar desc")
     assert_equal "bar", determine_order("foo", "bar")
   end
-  
+
   # returns content supplied to this method for testing
   def content_for(name, content = nil, &block)
     return name, content
@@ -50,7 +50,7 @@ class Cms::ApplicationHelperTest < ActionView::TestCase
     stylesheet = 'site'
     stylesheet2 = ['site','site2']
     require_stylesheet_link(stylesheet)
-    assert_equal stylesheet_link_tag('site2'), require_stylesheet_link(stylesheet2)[1]    
+    assert_equal stylesheet_link_tag('site2'), require_stylesheet_link(stylesheet2)[1]
   end
   def test_require_javascript_include_renders_to_correct_area
     js = 'site'
@@ -72,6 +72,6 @@ class Cms::ApplicationHelperTest < ActionView::TestCase
     js = 'site'
     js2 = ['site','site2']
     require_javascript_include(js)
-    assert_equal javascript_include_tag('site2'), require_javascript_include(js2)[1]    
+    assert_equal javascript_include_tag('site2'), require_javascript_include(js2)[1]
   end
 end

@@ -1,13 +1,13 @@
 require File.join(File.dirname(__FILE__), '/../../test_helper')
 
 ActiveRecord::Base.connection.instance_eval do
-  drop_table(:searchable_content_block_parents) if table_exists?(:searchable_content_block_parents)  
+  drop_table(:searchable_content_block_parents) if table_exists?(:searchable_content_block_parents)
   create_table(:searchable_content_block_parents) {|t| t.string :name }
   drop_table(:searchable_content_blocks) if table_exists?(:searchable_content_blocks)
   drop_table(:searchable_content_block_versions) if table_exists?(:searchable_content_block_versions)
-  create_versioned_table(:searchable_content_blocks) do |t| 
+  create_versioned_table(:searchable_content_blocks) do |t|
     t.integer :parent_id
-    t.string :name 
+    t.string :name
     t.boolean :deleted, :default => 0
     t.integer :created_by
     t.integer :updated_by
@@ -23,7 +23,7 @@ ActiveRecord::Base.connection.instance_eval do
 end
 
 class SearchableContentBlockParent < ActiveRecord::Base
-  has_many :children, :class_name => "SearchableContentBlock", :foreign_key => "parent_id" 
+  has_many :children, :class_name => "SearchableContentBlock", :foreign_key => "parent_id"
 end
 
 class SearchableContentBlock < ActiveRecord::Base
@@ -83,7 +83,7 @@ class SearchableBlockWithoutNameTest < ActiveSupport::TestCase
     assert_equal block, SearchableBlockWithoutName.find_by_name("NAME")
     assert_equal "NAME", block.name
   end
-  
+
   test "Search method should not fail if block has no :name field" do
     block = SearchableBlockWithoutName.create!(:name => ":implicitly specfied")
 

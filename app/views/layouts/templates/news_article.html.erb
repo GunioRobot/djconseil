@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <title><%= page_title %></title>
     <%= yield :html_head %>
-    
+
     <%= render :partial => "layouts/shared/stylesheets" %>
   </head>
   <body style="margin: 0; padding: 0; text-align: center;">
@@ -12,20 +12,20 @@
     <div id="wrapper">
       <div id="page">
         <%= render :partial => "layouts/shared/header" %>
-      
+
         <div id="lhs">
           <div id="subnav" class="navigation">
             <%= render_menu :depth => 2 %>
           </div>
         </div>
-        
+
         <div id="body" class="page">
           <div class="formatted block news">
             <%= container :main %>
           </div>
         </div>
       </div>
-      
+
       <%= render :partial => "layouts/shared/footer" %>
     </div>
   </body>

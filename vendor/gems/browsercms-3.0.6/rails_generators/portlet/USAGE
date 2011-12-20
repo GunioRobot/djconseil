@@ -9,7 +9,7 @@ Description:
     This generates a portlet class in app/portlets, a form in app/view/portlets and
     a default view to render the portlet in app/view/portlets, and a unit test in
     test/unit/portlets.
-    
+
     The name you supply will have "portlet" added to it, much the same way controllers work.
 
 Example:

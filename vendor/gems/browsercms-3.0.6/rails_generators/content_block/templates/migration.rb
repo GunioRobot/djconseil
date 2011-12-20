@@ -2,7 +2,7 @@ class <%= migration_name %> < ActiveRecord::Migration
   def self.up
     create_content_table :<%= table_name %> do |t|
 <% for attribute in attributes -%>
-      <%= 
+      <%=
         case attribute.type
         when :category
           @category_type = class_name.titleize
@@ -16,7 +16,7 @@ class <%= migration_name %> < ActiveRecord::Migration
         else
           "t.#{attribute.type} :#{attribute.name}"
         end
-      -%> 
+      -%>
 <% end -%>
     end
     <% if @category_type %>unless CategoryType.named('<%= @category_type %>').exists?

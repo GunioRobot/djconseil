@@ -10,7 +10,7 @@
 <div class="top_cap"></div>
 <div>
   <h3>Templates</h3>
-  <ul>  
+  <ul>
     <li<%= ' class="open"' if @menu_section == 'page_partials' %>><%= link_to "Page Partials", cms_page_partials_path %></li>
     <li<%= ' class="open"' if @menu_section == 'page_templates' %>><%= link_to "Page Templates", cms_page_templates_path %></li>
     <li<%= ' class="open"' if @menu_section == 'page_routes' %>><%= link_to "Page Routes", cms_page_routes_path %></li>
@@ -21,7 +21,7 @@
 <div class="top_cap"></div>
 <div>
   <h3>Tools</h3>
-  <ul>  
+  <ul>
     <li<%= ' class="open"' if @menu_section == 'caching' %>><%= link_to "Page Caching", cms_cache_path %></li>
     <li<%= ' class="open"' if @menu_section == 'redirects' %>><%= link_to "Redirects", cms_redirects_path %></li>
     <li<%= ' class="open"' if @menu_section == 'email_messages' %>><%= link_to "Email Messages", cms_email_messages_path %></li>

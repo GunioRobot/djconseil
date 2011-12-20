@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <title>DJ Conseil Patrimoine | <%= page_title %></title>
     <%= yield :html_head %>
-    
+
     <%= render :partial => "layouts/shared/javascripts" %>
     <%= render :partial => "layouts/shared/stylesheets" %>
   </head>
@@ -13,24 +13,24 @@
     <div id="wrapper">
       <div id="page">
         <%= render :partial => "layouts/shared/header" %>
-      
+
         <div id="lhs">
           <div id="subnav" class="navigation">
             <%= render_menu :depth => 2 %>
           </div>
-          
+
           <%= render :partial => "layouts/shared/latest_news" %>
         </div>
-        
+
         <div id="body" class="page">
           <div class="formatted block">
             <h1><%= @page_title %></h1>
-            
+
             <%= container :main %>
           </div>
         </div>
       </div>
-      
+
       <%= render :partial => "layouts/shared/footer" %>
     </div>
   </body>

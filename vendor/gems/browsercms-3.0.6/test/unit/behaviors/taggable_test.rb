@@ -6,7 +6,7 @@ ActiveRecord::Base.connection.instance_eval do
 
   drop_table(:versioned_taggable_articles) if table_exists?(:versioned_taggable_articles)
   drop_table(:versioned_taggable_article_versions) if table_exists?(:versioned_taggable_article_versions)
-  create_versioned_table(:versioned_taggable_articles) do |t| 
+  create_versioned_table(:versioned_taggable_articles) do |t|
     t.string :name
   end
 end
@@ -33,11 +33,11 @@ class TaggableBlockTest < ActiveSupport::TestCase
     assert_equal 2, article.tags.count
     assert_equal 2, Tag.count
     assert_equal 2, Tagging.count
-    
+
     assert_equal [article], TaggableArticle.tagged_with("foo").all
     assert_equal [article], TaggableArticle.tagged_with("bar").all
     assert TaggableArticle.tagged_with("bang").all.empty?
-        
+
     article.tag_list = "foo bang"
     assert article.save
     assert_equal 2, article.taggings.count
@@ -48,10 +48,10 @@ class TaggableBlockTest < ActiveSupport::TestCase
     assert_equal [article], TaggableArticle.tagged_with("foo").all
     assert_equal [article], TaggableArticle.tagged_with("bang").all
     assert TaggableArticle.tagged_with("bar").all.empty?
-    
+
     assert_equal "bang foo", article.tag_list
   end
-  
+
   def test_tag_cloud
     25.times do |n|
       tag_list = ["article"]
@@ -61,7 +61,7 @@ class TaggableBlockTest < ActiveSupport::TestCase
       tag_list << "last" if n == 24
       TaggableArticle.create!(:name => "Article ##{n}", :tag_list => tag_list.join(" ") )
     end
-    
+
     tag_counts = Tag.counts(:limit => 4)
     assert_equal 4, tag_counts.size
     assert_equal Tag.find_by_name("article"), tag_counts[0]
@@ -72,7 +72,7 @@ class TaggableBlockTest < ActiveSupport::TestCase
     assert_equal "5", tag_counts[2].count
     assert_equal Tag.find_by_name("first"), tag_counts[3]
     assert_equal "1", tag_counts[3].count
-    
+
     tag_cloud = Tag.cloud(:sizes => 9)
     assert_equal 5, tag_cloud.size
     assert_equal Tag.find_by_name("article"), tag_cloud[0]
@@ -86,7 +86,7 @@ class TaggableBlockTest < ActiveSupport::TestCase
     assert_equal Tag.find_by_name("last"), tag_cloud[4]
     assert_equal 0, tag_cloud[4].size
   end
-  
+
 end
 
 class VersionedTaggableBlockTest < ActiveSupport::TestCase
@@ -105,5 +105,5 @@ class VersionedTaggableBlockTest < ActiveSupport::TestCase
     assert_equal 2, Tagging.count
   end
 
-  
+
 end

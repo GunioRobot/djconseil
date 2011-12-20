@@ -1,31 +1,31 @@
 # This is not called directly
 # This is the base class for other content blocks
 class Cms::ContentBlockController < Cms::BaseController
-  
+
   layout :determine_layout
-  
+
   before_filter :set_toolbar_tab
-  
+
   helper_method :block_form, :new_block_path, :block_path, :blocks_path, :content_type
-  
+
   # Basic REST Crud Action
-  
+
   def index
     load_blocks
     render "#{template_directory}/index"
   end
-  
+
   def show
     load_block_draft
     render "#{template_directory}/show"
   end
-  
+
   def new
     build_block
     set_default_category
     render "#{template_directory}/new"
   end
-  
+
   def create
     if create_block
       after_create_on_success
@@ -36,12 +36,12 @@ class Cms::ContentBlockController < Cms::BaseController
     raise @exception if @exception.is_a?(Cms::Errors::AccessDenied)
     after_create_on_error
   end
-  
+
   def edit
     load_block_draft
     render "#{template_directory}/edit"
   end
-  
+
   def update
     if update_block
       after_update_on_success
@@ -54,26 +54,26 @@ class Cms::ContentBlockController < Cms::BaseController
     raise @exception if @exception.is_a?(Cms::Errors::AccessDenied)
     after_update_on_error
   end
-  
+
   def destroy
     do_command("deleted") { @block.destroy }
     redirect_to_first params[:_redirect_to], blocks_path
   end
-  
+
   # Additional CMS Action
-  
+
   def publish
     do_command("published") { @block.publish! }
     redirect_to_first params[:_redirect_to], block_path
   end
-  
+
   def revert_to
     do_command("reverted to version #{params[:version]}") do
       revert_block(params[:version])
     end
     redirect_to_first params[:_redirect_to], block_path
   end
-  
+
   def version
     load_block
     if params[:version]
@@ -81,22 +81,22 @@ class Cms::ContentBlockController < Cms::BaseController
     end
     render "#{template_directory}/show"
   end
-  
+
   def versions
     if model_class.versioned?
       load_block
       render "#{template_directory}/versions"
     else
       render :text => "Not Implemented", :status => :not_implemented
-    end    
+    end
   end
-    
+
   def usages
     load_block_draft
     @pages = @block.connected_pages.all(:order => 'name')
     render "#{template_directory}/usages"
   end
-  
+
   protected
     # methods that are used to detemine what content block type we are dealing with
 
@@ -106,54 +106,54 @@ class Cms::ContentBlockController < Cms::BaseController
 
     def content_type
       @content_type ||= ContentType.find_by_key(content_type_name)
-    end  
+    end
 
     def model_class
       content_type.model_class
     end
-  
+
     def model_name
       model_class.name.underscore.to_sym
     end
-  
+
     # methods for loading one or a collection of blocks
-  
+
     def load_blocks
       options = {}
       if params[:section_id] && params[:section_id] != 'all'
-        options[:include] = { :attachment => { :section_node => :section }} 
+        options[:include] = { :attachment => { :section_node => :section }}
         options[:conditions] = ["sections.id = ?", params[:section_id]]
       end
-      options[:page] = params[:page]    
+      options[:page] = params[:page]
       options[:order] = model_class.default_order if model_class.respond_to?(:default_order)
       options[:order] = params[:order] unless params[:order].blank?
       scope = model_class.respond_to?(:list) ? model_class.list : model_class
       @blocks = scope.searchable? ? scope.search(params[:search]).paginate(options) : scope.paginate(options)
       check_permissions
     end
-  
+
     def load_block
       @block = model_class.find(params[:id])
       check_permissions
     end
-  
+
     def load_block_draft
       @block = model_class.find(params[:id])
       @block = @block.as_of_draft_version if model_class.versioned?
       check_permissions
     end
-  
+
     # path related methods - available in the view as helpers
-  
+
     def new_block_path(options={})
       cms_new_url_for(@block, options)
     end
-  
+
     def block_path(action=nil)
       path = [:cms, @block]
       action ? path.unshift(action) : path
     end
-  
+
     def blocks_path(options={})
       cms_index_url_for(@block, options)
     end
@@ -162,9 +162,9 @@ class Cms::ContentBlockController < Cms::BaseController
     def block_form
       @content_type.form
     end
-  
+
     # new related methods
-  
+
     def build_block
       @block = model_class.new(params[model_name])
       check_permissions
@@ -173,11 +173,11 @@ class Cms::ContentBlockController < Cms::BaseController
     def set_default_category
       if @last_block = model_class.last
         @block.category = @last_block.category if @block.respond_to?(:category=)
-      end      
+      end
     end
-    
+
     # create related methods
-    
+
     def create_block
       build_block
       @block.save
@@ -198,7 +198,7 @@ class Cms::ContentBlockController < Cms::BaseController
     end
 
     def after_create_on_error
-      logger.error "#{@exception.message}\n#{@exception.backtrace.join('\n')}"      
+      logger.error "#{@exception.message}\n#{@exception.backtrace.join('\n')}"
       after_create_on_failure
     end
 
@@ -250,7 +250,7 @@ class Cms::ContentBlockController < Cms::BaseController
         false
       end
     end
-    
+
     # Use a "whitelist" approach to access to avoid mistakes
     # By default everyone can create new block and view them and their properties,
     # but blocks can only be modified based on the permissions of the pages they

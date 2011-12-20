@@ -1,5 +1,5 @@
 #
-# Defines the authentication behavior for controllers in BrowserCMS. It can be added to any controller that needs to 
+# Defines the authentication behavior for controllers in BrowserCMS. It can be added to any controller that needs to
 # hook into the BrowserCMS Authentication behavior like so:
 #
 # class MySuperSecureController < ApplicationController
@@ -38,7 +38,7 @@ module Cms
         def current_user
           # Note: We have disabled basic_http_auth
           @current_user ||= begin
-            User.current = (login_from_session || login_from_cookie || User.guest)  
+            User.current = (login_from_session || login_from_cookie || User.guest)
           end
         end
 
@@ -138,7 +138,7 @@ module Cms
             self.current_user = User.authenticate(login, password)
           end
         end
-    
+
         #
         # Logout
         #
@@ -173,7 +173,7 @@ module Cms
           logout_keeping_session!
           reset_session
         end
-    
+
         #
         # Remember_me Tokens
         #
@@ -184,25 +184,25 @@ module Cms
         # and they should be changed at each login
         def valid_remember_cookie?
           return nil unless User.current
-          (User.current.remember_token?) && 
+          (User.current.remember_token?) &&
             (cookies[:auth_token] == User.current.remember_token)
         end
-    
+
         # Refresh the cookie auth token if it exists, create it otherwise
         def handle_remember_cookie! new_cookie_flag
           return unless User.current
           case
           when valid_remember_cookie? then User.current.refresh_token # keeping same expiry date
-          when new_cookie_flag        then User.current.remember_me 
+          when new_cookie_flag        then User.current.remember_me
           else                             User.current.forget_me
           end
           send_remember_cookie!
         end
-  
+
         def kill_remember_cookie!
           cookies.delete :auth_token
         end
-    
+
         def send_remember_cookie!
           cookies[:auth_token] = {
             :value   => User.current.remember_token,

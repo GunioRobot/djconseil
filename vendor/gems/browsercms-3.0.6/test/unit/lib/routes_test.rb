@@ -15,7 +15,7 @@ end
 class RoutesTest < ActiveSupport::TestCase
 
   test "Verify behavior of classify, and how it works with already pluralized symbols" do
-    assert_equal "Kindness", :kindnesses.to_s.classify, "routes will pass 'plural' symbols to 'content_block', rather than single"    
+    assert_equal "Kindness", :kindnesses.to_s.classify, "routes will pass 'plural' symbols to 'content_block', rather than single"
   end
 
 
@@ -52,6 +52,6 @@ class RoutesTest < ActiveSupport::TestCase
 
     # Verifies the exact messages being passed to the route generator
   end
-  
+
 
 end

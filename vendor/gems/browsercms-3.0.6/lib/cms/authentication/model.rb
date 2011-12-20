@@ -5,7 +5,7 @@ module Cms
         model_class.extend ClassMethods
         model_class.class_eval do
           include InstanceMethods
-        
+
           # Virtual attribute for the unencrypted password
           attr_accessor :password
           validates_presence_of     :password,                   :if => :password_required?
@@ -13,7 +13,7 @@ module Cms
           validates_confirmation_of :password,                   :if => :password_required?
           #validates_length_of       :password, :within => 6..40, :if => :password_required?
           before_save :encrypt_password
-        end      
+        end
       end
 
       module ClassMethods
@@ -38,42 +38,42 @@ module Cms
             digest = secure_digest(digest, salt, password, key)
           end
           digest
-        end      
-      
+        end
+
         def secure_digest(*args)
           Digest::SHA1.hexdigest(args.flatten.join('--'))
-        end      
-      
+        end
+
       end
-    
+
       module InstanceMethods
         #Method to make it easy to change a user's password from the console, not used in the app
         def change_password(new_password)
           update_attributes(:password => new_password, :password_confirmation => new_password)
-        end      
-      
+        end
+
         # Encrypts the password with the user salt
         def encrypt(password)
           self.class.password_digest(password, salt)
         end
-      
+
         def authenticated?(password)
           crypted_password == encrypt(password)
         end
-      
-        # before filter 
+
+        # before filter
         def encrypt_password
           return if password.blank?
           self.salt = self.class.make_token if new_record?
           self.crypted_password = encrypt(password)
         end
-      
+
         def password_required?
           crypted_password.blank? || !password.blank?
-        end      
-      
+        end
+
         def remember_token?
-          (!remember_token.blank?) && 
+          (!remember_token.blank?) &&
             remember_token_expires_at && (Time.now.utc < remember_token_expires_at.utc)
         end
 
@@ -95,12 +95,12 @@ module Cms
         # refresh token (keeping same expires_at) if it exists
         def refresh_token
           if remember_token?
-            self.remember_token = self.class.make_token 
-            save      
+            self.remember_token = self.class.make_token
+            save
           end
         end
 
-        # 
+        #
         # Deletes the server-side record of the authentication token.  The
         # client-side (browser cookie) and server-side (this remember_token) must
         # always be deleted together.
@@ -109,7 +109,7 @@ module Cms
           self.remember_token_expires_at = nil
           self.remember_token            = nil
           save
-        end      
+        end
       end
     end
   end

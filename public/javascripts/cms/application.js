@@ -1,12 +1,12 @@
 //CMS related functions
 jQuery(function($) {
-  
+
   //It would be cool if these were added to the real jQuery
     //You can call this a few ways:
     //createElement('p') => "<p/>"
     //createElement('p','hi') => "<p>hi</p>"
     //createElement('p', {align: 'center'}) => "<p align="center"/>"
-    //createElement('p','hi',{align: 'center'}) => "<p align="center">hi</p>"    
+    //createElement('p','hi',{align: 'center'}) => "<p align="center">hi</p>"
     $.createElement = function(tag_name, tag_value, tag_attrs) {
       var name = tag_name
       if(typeof tag_value == "object") {
@@ -27,9 +27,9 @@ jQuery(function($) {
       }
       return element
     }
-  
+
   var sanitizationRegexes = [[/\s/, "_"], [/[&+()]/, "-"], [/[=?!'"{}\[\]#<>%]/, ""]]
-  
+
   $.cms = {
     sanitizeFileName: function(s) {
       var split = s.split(/\/|\\/)
@@ -68,40 +68,40 @@ jQuery(function($) {
           var http_method = $(this).attr('class').match(/http_([^ ]*)/)[1]
           $(m).attr('type', 'hidden').attr('name', '_method').attr('value', http_method)
           f.appendChild(m)
-          
+
           //Create the authenticity_token hidden input
           if($.cms.authenticity_token && $.cms.authenticity_token != '') {
             var m = document.createElement('input')
-            $(m).attr('type', 'hidden').attr('name', 'authenticity_token').attr('value', $.cms.authenticity_token)  
+            $(m).attr('type', 'hidden').attr('name', 'authenticity_token').attr('value', $.cms.authenticity_token)
             f.appendChild(m)
           }
-          
-          f.submit()          
+
+          f.submit()
         }
         return false
-      })      
+      })
     }
   }
-  
+
   $.cms.attachEventHandlers(document);
-  
+
   $('#message.notice').parent().show().animate({opacity: 1.0}, 3000).fadeOut("normal")
   $('#message.error').parent().show().animate({opacity: 1.0}, 3000).fadeOut("normal")
-  
+
 })
 
 //CookieSet allows us to treat one cookie value as a set of values
 jQuery(function($) {
-  
+
   var sep = '|'
-  
+
   $.cookieSet = {
-    //Treats the cookie as an array 
+    //Treats the cookie as an array
     add: function(name, value, options) {
       this.remove(name, value, options)
       var set = this.get(name)
       if(set) {
-        set.push(value)  
+        set.push(value)
       } else {
         var set = [value]
       }
@@ -124,17 +124,17 @@ jQuery(function($) {
         var arr = []
         $.each(set, function() {
           if(this != value+'') {
-            arr.push(this)  
-          }          
+            arr.push(this)
+          }
         })
         $.cookie(name, arr.join(sep), options)
-        return this.get(name)         
+        return this.get(name)
       } else {
         return null
       }
     },
 
-    //Treats the cookie as an array 
+    //Treats the cookie as an array
     contains: function(name, value) {
       var set = this.get(name)
       if(set) {
@@ -142,7 +142,7 @@ jQuery(function($) {
       } else {
         return false
       }
-    }    
+    }
   }
-  
+
 })

@@ -1,5 +1,5 @@
 module Cms
-  module Extensions 
+  module Extensions
     module NilClass
       def round_bytes
         to_i.round_bytes

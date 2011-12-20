@@ -1,6 +1,6 @@
 class LoadDemoSiteData < ActiveRecord::Migration
   extend Cms::DataLoader
-  
+
   def self.up
 <%= data %>
 
@@ -14,8 +14,8 @@ class LoadDemoSiteData < ActiveRecord::Migration
 <%= pp %>
     <% end %>
   end
-  
+
   def self.down
   end
-  
+
 end

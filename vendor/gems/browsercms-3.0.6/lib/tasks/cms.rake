@@ -8,7 +8,7 @@ namespace :test do
 end
 
 namespace :cms do
-  
+
   desc "Generate guides for the CMS"
   task :guides do
     require 'rubygems'
@@ -34,6 +34,6 @@ namespace :cms do
 
     CmsGuides::Generator.new.generate
 
-  end    
-    
+  end
+
 end

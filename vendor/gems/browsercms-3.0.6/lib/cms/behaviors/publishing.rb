@@ -17,11 +17,11 @@ module Cms
           @is_publishable = true
           extend ClassMethods
           include InstanceMethods
-        
+
           attr_accessor :publish_on_save
-        
+
           after_save :publish_for_non_versioned
-        
+
           named_scope :published, :conditions => {:published => true}
           named_scope :unpublished, lambda {
             if versioned?
@@ -47,7 +47,7 @@ module Cms
             true
           end
         end
-        
+
         def publish_for_non_versioned
           unless self.class.versioned?
             if @publish_on_save
@@ -56,7 +56,7 @@ module Cms
             end
           end
         end
-        
+
         def publish
           publish!
           true
@@ -64,7 +64,7 @@ module Cms
           logger.warn("Could not publish, #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}")
           false
         end
-        
+
         def publish!
           if new_record?
             self.publish_on_save = true
@@ -77,7 +77,7 @@ module Cms
                 # We only need to publish if this isn't already published
                 # or the draft version is greater than the live version
                 if !self.published? || d.version > self.version
-                  
+
                   d.update_attributes(:published => true)
 
                   # copy values from the draft to the main record
@@ -103,11 +103,11 @@ module Cms
             end
             self.published = true
           end
-        end    
-            
+        end
+
         def status
           live? ? :published : :draft
-        end        
+        end
 
         def status_name
           status.to_s.titleize
@@ -116,7 +116,7 @@ module Cms
         def live?
           self.class.versioned? ? live_version.version == draft.version && published? : true
         end
-        
+
       end
     end
   end

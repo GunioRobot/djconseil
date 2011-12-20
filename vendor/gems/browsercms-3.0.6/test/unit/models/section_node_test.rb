@@ -10,8 +10,8 @@ class SectionNodeTest < ActiveSupport::TestCase
     @b = Factory(:section, :parent => @parent, :name => "B")
     @b1 = Factory(:page, :section => @b, :name => "B1")
     @b2 = Factory(:page, :section => @b, :name => "B2")
-    @b3 = Factory(:page, :section => @b, :name => "B3")    
-    
+    @b3 = Factory(:page, :section => @b, :name => "B3")
+
     @node_a = @a.node
     @node_b = @b.node
     @node_a1 = @a1.section_node
@@ -20,7 +20,7 @@ class SectionNodeTest < ActiveSupport::TestCase
     @node_b1 = @b1.section_node
     @node_b2 = @b2.section_node
     @node_b3 = @b3.section_node
-    reset(:node_a, :node_a1, :node_a2, :node_a3, :node_b, :node_b1, :node_b2, :node_b3)    
+    reset(:node_a, :node_a1, :node_a2, :node_a3, :node_b, :node_b1, :node_b2, :node_b3)
   end
   def test_reorder_nodes_within_same_section
     @node_a2.move_to(@a, 1)
@@ -33,7 +33,7 @@ class SectionNodeTest < ActiveSupport::TestCase
     assert_properties(@node_a3, :section_id => @a.id, :node_type => "Page", :node_id => @a3.id, :position => 3)
     assert_properties(@node_b1, :section_id => @b.id, :node_type => "Page", :node_id => @b1.id, :position => 1)
     assert_properties(@node_b2, :section_id => @b.id, :node_type => "Page", :node_id => @b2.id, :position => 2)
-    assert_properties(@node_b3, :section_id => @b.id, :node_type => "Page", :node_id => @b3.id, :position => 3)    
+    assert_properties(@node_b3, :section_id => @b.id, :node_type => "Page", :node_id => @b3.id, :position => 3)
   end
   def test_move_nodes_to_different_section
     @node_a2.move_to(@b, 2)

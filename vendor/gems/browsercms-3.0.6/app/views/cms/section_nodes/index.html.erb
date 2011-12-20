@@ -1,6 +1,6 @@
 <% content_for :html_head do %>
   <%= stylesheet_link_tag 'cms/sitemap' %>
-  <%= javascript_include_tag 'cms/sitemap' %>  
+  <%= javascript_include_tag 'cms/sitemap' %>
 <% end %>
 
 <% page_title "Sitemap" %>
@@ -20,12 +20,12 @@
   <ul id="root_<%= @section.id %>" class="root" style="padding-left: 0">
     <li>
       <%= render :partial => "node", :locals => {
-          :node => @section, 
-          :node_type => "section", 
+          :node => @section,
+          :node_type => "section",
           :icon => action_icon(:home),
           :display => true
         } %>
     </li>
   </ul>
-  <%= render :partial => "section_node", :collection => @section.child_nodes.all(:order => 'position'), :locals => {:display => true, :root => true} %>    
+  <%= render :partial => "section_node", :collection => @section.child_nodes.all(:order => 'position'), :locals => {:display => true, :root => true} %>
 </div>

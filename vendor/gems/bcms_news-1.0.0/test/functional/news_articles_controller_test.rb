@@ -9,5 +9,5 @@ class NewsArticlesControllerTest < ActionController::TestCase
 
   end
 
- 
+
 end

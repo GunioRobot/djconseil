@@ -13,7 +13,7 @@ class ContentBlockGenerator < Rails::Generator::NamedBase
       # Create the unit test for the model
       m.directory File.join('test/unit/models')
       m.template 'unit_test.erb', File.join('test/unit/models', "#{file_name}_test.rb")
-      
+
       # Create the controller
       m.directory File.join('app/controllers/cms')
       m.template 'controller.rb', File.join('app/controllers/cms', "#{file_name.pluralize}_controller.rb")
@@ -50,10 +50,10 @@ class ContentBlockGenerator < Rails::Generator::NamedBase
     def add_options!(opt)
       opt.separator ''
       opt.separator 'Options:'
-      opt.on("--skip-migration", 
+      opt.on("--skip-migration",
              "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
     end
-    
+
     def route_countent_block(name)
       resource_list = resources.map { |r| r.to_sym.inspect }.join(', ')
       sentinel = 'ActionController::Routing::Routes.draw do |map|'
@@ -65,5 +65,5 @@ class ContentBlockGenerator < Rails::Generator::NamedBase
         end
       end
     end
-    
+
 end

@@ -4,7 +4,7 @@ module Cms
       def self.included(model_class)
         model_class.extend(MacroMethods)
       end
-      module MacroMethods      
+      module MacroMethods
         def belongs_to_category?
           !!@belongs_to_category
         end
@@ -12,11 +12,11 @@ module Cms
           @belongs_to_category = true
           extend ClassMethods
           include InstanceMethods
-          
+
           belongs_to :category
-          
+
           named_scope :in_category, lambda{|cat| {:conditions => ["category_id = ?", cat.id]}}
-          
+
         end
       end
       module ClassMethods

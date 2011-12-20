@@ -1,5 +1,5 @@
 class EmailMessageMailer < ActionMailer::Base
-  
+
   def email_message(message)
     @recipients = message.recipients
     @from = message.sender

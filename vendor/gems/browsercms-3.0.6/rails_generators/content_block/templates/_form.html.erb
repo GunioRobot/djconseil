@@ -3,7 +3,7 @@
 %><%%= f.cms_text_field :name %>
 <% end %>
 <% for attribute in attributes -%>
-<%%= f.cms_<%= 
+<%%= f.cms_<%=
 case attribute.type
 when :attachment
   "file_field :#{attribute.name}_file, :label => \"File\""
@@ -17,6 +17,6 @@ when :html
   "text_editor :#{attribute.name}"
 else
   "#{attribute.field_type} :#{attribute.name}"
-end 
+end
 -%> %>
 <% end -%>

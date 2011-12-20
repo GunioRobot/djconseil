@@ -5,13 +5,13 @@
   <% javascript_tag do %>
     jQuery(function($){
       var collectionName = '<%= @block.class.name.underscore.pluralize %>'
-      
+
       $('table.data tbody tr').hover(function(){
         $(this).addClass('hover')
       }, function(){
         $(this).removeClass('hover')
       }).click(function(){
-        var match = this.id.match(/(.*)_(\d+)/) 
+        var match = this.id.match(/(.*)_(\d+)/)
         var id = match[2]
         $('table.data tbody tr').removeClass('selected')
         $(this).addClass('selected')

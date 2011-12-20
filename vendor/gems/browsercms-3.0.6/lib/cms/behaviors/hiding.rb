@@ -12,9 +12,9 @@ module Cms
           @is_hideable = true
           extend ClassMethods
           include InstanceMethods
-        
+
           named_scope :hidden, :conditions => {:hidden => true}
-          named_scope :not_hidden, :conditions => {:hidden => false}        
+          named_scope :not_hidden, :conditions => {:hidden => false}
         end
       end
       module ClassMethods
@@ -22,7 +22,7 @@ module Cms
       module InstanceMethods
         def hide
           self.hidden = true
-          self.version_comment = "Hidden"         
+          self.version_comment = "Hidden"
           self.save
         end
         def hide!
@@ -32,12 +32,12 @@ module Cms
         end
         def unhide
           self.hidden = false
-          self.version_comment = "Unhidden"          
+          self.version_comment = "Unhidden"
           self.save
         end
         def unhide!
           self.hidden = false
-          self.version_comment = "Unhidden"          
+          self.version_comment = "Unhidden"
           self.save!
         end
       end

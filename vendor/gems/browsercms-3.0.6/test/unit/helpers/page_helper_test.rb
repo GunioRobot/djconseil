@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '/../../test_helper')
 
 class Cms::PageHelperTest < ActionView::TestCase
-  
+
   def test_render_breadcrumbs
     @foo = Factory(:section, :name => "Foo", :parent => root_section, :path => "/foo")
     Factory(:page, :name => "Overview", :section => @foo, :path => "/foo")
@@ -10,7 +10,7 @@ class Cms::PageHelperTest < ActionView::TestCase
     @bang = Factory(:page, :name => "Bang", :section => @bar, :path => "/bar/bang")
 
     @page = @bang
-    
+
     expected = <<HTML
 <ul class="breadcrumbs">
   <li class="first"><a href="/">My Site</a></li>
@@ -19,9 +19,9 @@ class Cms::PageHelperTest < ActionView::TestCase
   <li>Bang</li>
 </ul>
 HTML
-    
+
     assert_equal expected.chomp, render_breadcrumbs
-    
+
     expected = <<HTML
 <ul class="breadcrumbs">
   <li class="first"><a href="/foo">Foo</a></li>
@@ -40,7 +40,7 @@ HTML
   <li>Bar</li>
 </ul>
 HTML
-    
+
     assert_equal expected.chomp, render_breadcrumbs(:from_top => 1)
 
     expected = <<HTML
@@ -50,8 +50,8 @@ HTML
   <li>Overview</li>
 </ul>
 HTML
-    
+
     assert_equal expected.chomp, render_breadcrumbs(:from_top => 1, :show_parent => true)
-  end  
-  
+  end
+
 end

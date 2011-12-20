@@ -24,7 +24,7 @@
     </tr>
   </thead>
   <% @pages.each do |page| %>
-    <% status = page.archived? ? :archived : page.status %>    
+    <% status = page.archived? ? :archived : page.status %>
     <tr>
       <td class="first"></td>
       <td class="page_name"><%=  page.name %></td>

@@ -5,7 +5,7 @@ class Cms::SessionsControllerTest < ActionController::TestCase
   def teardown
     User.current = nil
   end
-  
+
   def test_not_redirected_to_cms_site_if_public_site
     @request.host = "foo.com"
     @request.request_uri = "/cms/login"
@@ -21,7 +21,7 @@ class Cms::SessionsControllerTest < ActionController::TestCase
     log @response.body
     assert_select "title", "CMS Login"
   end
-  
+
   def test_return_to
     user = Factory(:user)
     expected_url = "/expected_url"
@@ -37,21 +37,21 @@ class Cms::SessionsControllerTest < ActionController::TestCase
 
     assert_redirected_to(expected_url)
   end
-  
+
 end
 
 class Cms::SessionsControllerCacheEnabledTest < ActionController::TestCase
   include Cms::ControllerTestHelper
   tests Cms::SessionsController
-  
+
   def setup
     @controller.perform_caching = true
   end
-  
+
   def teardown
     @controller.perform_caching = false
   end
-  
+
   def test_redirected_to_cms_site_if_public_site
     @request.host = "foo.com"
     @request.request_uri = "/cms/login"
@@ -71,6 +71,6 @@ class Cms::SessionsControllerCacheEnabledTest < ActionController::TestCase
   test "destroy" do
     Cms::SessionsController.any_instance.expects(:logout_user)
     delete :destroy
-    assert_redirected_to "/" 
+    assert_redirected_to "/"
   end
 end

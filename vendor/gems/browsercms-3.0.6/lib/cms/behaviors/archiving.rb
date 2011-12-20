@@ -13,7 +13,7 @@ module Cms
           include InstanceMethods
 
           named_scope :archived, :conditions => {:archived => true}
-          named_scope :not_archived, :conditions => {:archived => false}        
+          named_scope :not_archived, :conditions => {:archived => false}
         end
       end
       module InstanceMethods
@@ -24,17 +24,17 @@ module Cms
         end
         def archive!
           self.archived = true
-          self.version_comment = "Archived"          
+          self.version_comment = "Archived"
           self.save!
         end
         def unarchive
           self.archived = false
-          self.version_comment = "Unarchived"          
+          self.version_comment = "Unarchived"
           self.save
         end
         def unarchive!
           self.archived = false
-          self.version_comment = "Unarchived"          
+          self.version_comment = "Unarchived"
           self.save!
         end
       end

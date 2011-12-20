@@ -1,12 +1,12 @@
 class Cms::TasksController < Cms::BaseController
-  
+
   before_filter :set_toolbar_tab
   before_filter :load_page, :only => [:new, :create]
-  
+
   def new
     @task = @page.tasks.build(:assigned_by => current_user)
   end
-  
+
   def create
     @task = @page.tasks.build(params[:task])
     @task.assigned_by = current_user
@@ -17,7 +17,7 @@ class Cms::TasksController < Cms::BaseController
       render :action => 'new'
     end
   end
-  
+
   def complete
     if params[:task_ids]
       Task.all(:conditions => ["id in (?)", params[:task_ids]]).each do |t|
@@ -39,14 +39,14 @@ class Cms::TasksController < Cms::BaseController
       redirect_to @task.page.path
     end
   end
-  
+
   private
     def load_page
       @page = Page.find(params[:page_id])
     end
-  
+
     def set_toolbar_tab
       @toolbar_tab = :sitemap
-    end  
-  
+    end
+
 end

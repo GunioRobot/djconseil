@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
   has_many :user_group_memberships
   has_many :groups, :through => :user_group_memberships
   has_many :tasks, :foreign_key => "assigned_to_id"
-    
+
   named_scope :active, :conditions => {:expires_at => nil }
-  named_scope :able_to_edit_or_publish_content, 
-    :include => {:groups => :permissions}, 
+  named_scope :able_to_edit_or_publish_content,
+    :include => {:groups => :permissions},
     :conditions => ["permissions.name = ? OR permissions.name = ?", "edit_content", "publish_content"]
 
   def self.current
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   def self.current=(user)
     Thread.current[:cms_user] = user
   end
-    
+
   def self.guest(options = {})
     GuestUser.new(options)
   end
@@ -104,11 +104,11 @@ class User < ActiveRecord::Base
   # true if the user has any of the permissions
   def able_to?(*required_permissions)
     perms = required_permissions.map(&:to_sym)
-    permissions.any? do |p| 
-      perms.include?(p.name.to_sym) 
+    permissions.any? do |p|
+      perms.include?(p.name.to_sym)
     end
   end
-    
+
   # Expects object to be an object or a section
   # If it's a section, that will be used
   # If it's not a section, it will call section on the object
@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
     section = object.is_a?(Section) ? object : object.section
     viewable_sections.include?(section) || groups.cms_access.count > 0
   end
-  
+
   def able_to_modify?(object)
     case object
       when Section
@@ -132,20 +132,20 @@ class User < ActiveRecord::Base
         end
     end
   end
-  
+
   # Expects node to be a Section, Page or Link
-  # Returns true if the specified node, or any of its ancestor sections, is editable by any of 
+  # Returns true if the specified node, or any of its ancestor sections, is editable by any of
   # the user's 'CMS User' groups.
-  def able_to_edit?(object)    
+  def able_to_edit?(object)
     able_to?(:edit_content) && able_to_modify?(object)
   end
-  
+
   def able_to_publish?(object)
     able_to?(:publish_content) && able_to_modify?(object)
   end
-  
+
   def able_to_edit_or_publish_content?
     able_to?(:edit_content, :publish_content)
   end
-  
+
 end

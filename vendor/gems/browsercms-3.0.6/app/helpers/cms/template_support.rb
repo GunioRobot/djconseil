@@ -6,7 +6,7 @@ module Cms
       controller.class_eval do
         include Cms::Authentication::Controller
         include Cms::ErrorHandling
-        
+
         helper Cms::PageHelper
         helper Cms::MenuHelper
         helper do
@@ -17,5 +17,5 @@ module Cms
       end
     end
   end
-  
+
 end

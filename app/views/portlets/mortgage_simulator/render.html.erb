@@ -4,50 +4,50 @@
       <%= radio_button_tag :simulate, "repayment_schedule", params[:simulate] == "repayment_schedule" || params[:simulate].nil? %>
       <%= label_tag :simulate_repayment_schedule, "l'échéancier de remboursements" %>
     </p>
-    
+
     <p>
       <%= radio_button_tag :simulate, "borrowable_capital", params[:simulate] == "borrowable_capital"  %>
       <%= label_tag :simulate_borrowable_capital, "le capital que vous pouvez emprunter"  %>
     </p>
-    
+
     <p>
       <%= radio_button_tag :simulate, "mortgage_duration", params[:simulate] == "mortgage_duration"  %>
       <%= label_tag :simulate_mortgage_duration, "la durée de vos remboursements"  %>
     </p>
   <% end %>
-  
+
   <% field_set_tag "Vous connaissez :", :id => "simulator_fields" do %>
     <p class="capital not_to_simulate_borrowable_capital">
       <%= label_tag :capital, "Le capital du prêt :"  %>
       <%= text_field_tag :capital, params[:capital] %> €
     </p>
-    
+
     <p class="years not_to_simulate_mortgage_duration">
       <%= label_tag :years, "La durée du prêt :"  %>
       <%= select_tag :years, options_for_select((1..30).map { |y| ["#{y} an".pluralize(y), y] }, params[:years].to_i) %>
     </p>
-    
+
     <p class="interest_rate">
       <%= label_tag :interest_rate, "Le taux d'intérêt (hors assurances) :"  %>
       <%= text_field_tag :interest_rate, params[:interest_rate] %> %
     </p>
-    
+
     <p class="monthly_payment not_to_simulate_repayment_schedule">
       <%= label_tag :monthly_payment, "La mensualité :"  %>
       <%= text_field_tag :monthly_payment, params[:monthly_payment] %> € par mois
     </p>
   <% end %>
-  
+
   <p><%= submit_tag "Calculer" %></p>
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
   var radioButtons = $$("#simulator_types input[type=radio]");
-  
+
   radioButtons.each(function(field) {
     field.observe('click', updateSimulatorFields);
   })
-  
+
   function updateSimulatorFields() {
     var radioButton = $$("#simulator_types input[type=radio]").find(function(radioButton) { return radioButton.checked });
     var cls  = "not_to_simulate_" + radioButton.value;
@@ -55,15 +55,15 @@
       field.hasClassName(cls) ? field.hide() : field.show();
     })
   }
-  
+
   updateSimulatorFields();
 </script>
 
 <% if @schedule.present? %>
   <p><strong>Mensualités:</strong> <%= number_to_currency @monthly_payment %></p>
-  
+
   <p><strong>Coût du crédit:</strong> <%= number_to_currency @mortgage_cost %></p>
-  
+
   <table id="schedule" border="1">
     <thead>
       <tr>
@@ -104,14 +104,14 @@
     background: #E6DBDB;
     margin-bottom: 10px;
   }
-  
+
   fieldset legend {
     font-weight: bold;
     font-size: 13px;
     color: #591e58;
     margin-left: 15px;
   }
-  
+
   #simulator_fields label {
     float: left;
     line-height: 20px;
@@ -119,10 +119,10 @@
     text-align: right;
     padding-right: 5px;
   }
-  
+
   #simulator_fields input {
     width: 60px;
   }
-  
+
   table#schedule { text-align: right }
 </style>

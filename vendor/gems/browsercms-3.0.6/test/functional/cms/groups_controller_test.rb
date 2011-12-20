@@ -14,9 +14,9 @@ class Cms::GroupsControllerTest < ActionController::TestCase
 
   def test_create_cms_group
     post :create, :group => Factory.attributes_for(:group, :group_type_id => @group_type.id)
-    
-    assert_redirected_to :action => "index"    
-    
+
+    assert_redirected_to :action => "index"
+
     group = Group.last
     assert_equal 0, group.permissions.count
     assert group.permission_ids.include?(@edit_content.id)
@@ -24,23 +24,23 @@ class Cms::GroupsControllerTest < ActionController::TestCase
   end
 
   def test_create_cms_group
-    post :create, :group => Factory.attributes_for(:group, 
+    post :create, :group => Factory.attributes_for(:group,
       :group_type_id => @group_type.id,
       :permission_ids => [@edit_content.id.to_s, @publish_content.id.to_s])
-    
+
     assert_redirected_to :action => "index"
-    
+
     group = Group.last
     assert_equal 2, group.permissions.count
     assert group.permission_ids.include?(@edit_content.id)
     assert group.permission_ids.include?(@publish_content.id)
   end
 
-  def test_create_public_group    
+  def test_create_public_group
     post :create, :group => Factory.attributes_for(:group, :group_type_id => @public_group_type.id)
-    
+
     assert_redirected_to :action => "index"
-    
+
     group = Group.last
     assert_equal 0, group.permissions.count
     assert !group.permission_ids.include?(@edit_content.id)

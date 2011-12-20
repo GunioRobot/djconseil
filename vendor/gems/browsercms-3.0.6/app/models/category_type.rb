@@ -4,18 +4,18 @@ class CategoryType < ActiveRecord::Base
   validates_uniqueness_of :name
   is_searchable
   named_scope :named, lambda {|name| {:conditions => ['category_types.name = ?', name] } }
-  
+
   # Return a map when the key is category type id as a string
-  # and the value is an array of arrays, each entry having 
+  # and the value is an array of arrays, each entry having
   # the first value as the category path and the second value
   # being the category id as a string
   def self.category_map
-    all.inject(Hash.new([])) do |map, ct| 
+    all.inject(Hash.new([])) do |map, ct|
       map[ct.id.to_s] = ct.category_list.map{|c| [c.path, c.id.to_s]}
       map
     end
   end
-  
+
   # This is used to get the full list of categories for this category type in the correct order.
   def category_list(order="name")
     list = []
@@ -26,9 +26,9 @@ class CategoryType < ActiveRecord::Base
     categories.top_level.all(:order => order).each{|cat| fn.call(cat)}
     list
   end
-  
+
   def cannot_be_deleted_message
     categories.count.zero? ? nil : "This cannot be deleted because it is in use in #{categories.count} #{"category".pluralize(categories.count)}"
   end
-  
+
 end

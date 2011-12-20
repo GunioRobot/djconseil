@@ -1,4 +1,4 @@
-# This controller handles the login/logout function of the site.  
+# This controller handles the login/logout function of the site.
 class Cms::SessionsController < Cms::ApplicationController
 
   before_filter :redirect_to_cms_site, :only => [:new]

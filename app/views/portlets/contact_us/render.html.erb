@@ -3,34 +3,34 @@
     <% if @sent %>
       <p class="success">Votre message a été envoyé avec succès.</p>
     <% end %>
-    
+
     <% if @error %>
       <p class="error">Veuillez renseigner tous les champs avant d'envoyer votre message.</p>
     <% end %>
-    
+
     <p>
       <label>&nbsp;</label>
       <span class="required">*</span> champs requis
     </p>
-    
+
     <p>
       <%= label_tag :name, "Nom" %>
       <span class="required">*</span>
       <%= text_field_tag :name, params[:name] %>
     </p>
-    
+
     <p>
       <%= label_tag :from, "Nº de Tél" %>
       <span class="required">*</span>
       <%= text_field_tag :from, params[:from] %>
     </p>
-    
+
     <p>
       <%= label_tag :from, "Votre addresse email" %>
       <span class="required">*</span>
       <%= text_field_tag :from, params[:from] %>
     </p>
-    
+
     <p>
       <%= label_tag :from, "Votre projet/souhait" %>
       <ul class="options">
@@ -43,17 +43,17 @@
         <li><%= check_box_tag :project, params[:from] %> Autre
       </ul>
     </p>
-    
+
     <p>
       <%= label_tag :message, "Commentaires" %>
       <%= text_area_tag :message, params[:message] %>
     </p>
-    
+
     <p>
       <label>&nbsp;</label>
       <%= check_box_tag :newsletter, params[:newsletter] %> Je souhaire recevoir les informations fiscales et commerciales de DJ Conseil Patrimoine
     </p>
-    
+
     <p style="padding-left:120px"><%= submit_tag "Envoyer" %></p>
   <% end %>
 <% end %>
@@ -64,14 +64,14 @@
     background: #E6DBDB;
     margin-bottom: 10px;
   }
-  
+
   fieldset legend {
     font-weight: bold;
     font-size: 13px;
     color: #591e58;
     margin-left: 15px;
   }
-  
+
   #contact_us label {
     float: left;
     line-height: 24px;
@@ -79,41 +79,41 @@
     text-align: right;
     padding-right: 5px;
   }
-  
+
   #contact_us input,
   #contact_us textarea {
     font-size: 12px;
   }
-  
+
   #contact_us input {
     width: 200px;
   }
-  
+
   #contact_us input[type="checkbox"] {
     width: auto;
   }
-  
+
   #contact_us ul.options li {
     list-style-type: none;
     margin-left: 110px;
   }
-  
+
   #contact_us textarea {
     width: 500px;
     height: 250px;
     padding: 5px;
   }
-  
+
   #contact_us p.success {
     color: green;
     font-weight: bold;
   }
-  
+
   #contact_us p.error {
     color: red;
     font-weight: bold;
   }
-  
+
   #contact_us span.required {
     color: red;
     font-weight: bold;

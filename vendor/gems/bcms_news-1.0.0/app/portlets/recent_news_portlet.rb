@@ -1,5 +1,5 @@
 class RecentNewsPortlet < Portlet
-  
+
   def render
     order = "release_date DESC"
     if !@portlet.sort_by.blank? and !@portlet.sort_order.blank?
@@ -13,5 +13,5 @@ class RecentNewsPortlet < Portlet
       @articles = NewsArticle.all(:conditions => ["category_id = ?", @category.id], :order => order, :limit => @portlet.limit)
     end
   end
-    
+
 end

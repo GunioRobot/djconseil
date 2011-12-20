@@ -1,16 +1,16 @@
 class Cms::GroupsController < Cms::ResourceController
   layout 'cms/administration'
-  
+
   check_permissions :administrate
   before_filter :set_menu_section
-  
+
   def index
     @groups = Group.paginate(
       :include => :group_type,
-      :page => params[:page], 
+      :page => params[:page],
       :order => params[:order] || "groups.name")
   end
-  
+
   protected
     def after_create_url
       index_url
@@ -22,5 +22,5 @@ class Cms::GroupsController < Cms::ResourceController
     def set_menu_section
       @menu_section = 'groups'
     end
-    
+
 end

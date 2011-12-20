@@ -228,7 +228,7 @@ class Browsercms300 < ActiveRecord::Migration
       t.belongs_to :page
       t.text :code
       t.timestamps
-    end                 
+    end
     create_table :page_route_options do |t|
       t.belongs_to :page_route
       t.string :type

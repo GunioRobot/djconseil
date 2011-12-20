@@ -22,7 +22,7 @@ class Cms::ContentController < Cms::ApplicationController
   end
 
   # ----- Error Handlers -------------------------------------------------------
-  
+
   def handle_not_found_on_page(exception)
     logger.warn "Page Not Found"
     handle_error_with_cms_page('/system/not_found', exception, :not_found)
@@ -52,21 +52,21 @@ class Cms::ContentController < Cms::ApplicationController
   end
 
   private
-  
+
   # This is the method all actions delegate to
   # check_access_to_page will also call this directly
   # if caching is not enabled
   def render_page
     @_page_route.execute(self) if @_page_route
-    prepare_connectables_for_render 
+    prepare_connectables_for_render
     render :layout => @page.layout, :action => 'show'
   end
-  
+
   def render_page_with_caching
     render_page
     cache_page if perform_caching
   end
-  
+
   # This is the method all error handlers delegate to
   def handle_error_with_cms_page(error_page_path, exception, status, options={})
 
@@ -76,32 +76,32 @@ class Cms::ContentController < Cms::ApplicationController
     else
       return handle_server_error(exception) if current_user.able_to?(:edit_content, :publish_content)
     end
-    
+
     # We must be showing the page outside of the CMS
     # So we will show the error page
     if @page = Page.find_live_by_path(error_page_path)
       logger.info "Rendering Error Page: #{@page.inspect}"
       @mode = "view"
       @show_page_toolbar = false
-      
+
       # copy new instance variables to the template
       %w[page mode show_page_toolbar].each do |v|
         @template.instance_variable_set("@#{v}", instance_variable_get("@#{v}"))
       end
-      
-      # clear out any content already captured 
+
+      # clear out any content already captured
       # by previous attempts to render the page within this request
       @template.instance_variables.select{|v| v =~ /@content_for_/ }.each do |v|
         @template.instance_variable_set("#{v}", nil)
       end
-      
+
       prepare_connectables_for_render
       render :layout => @page.layout, :template => 'cms/content/show', :status => status
     else
       handle_server_error(exception)
-    end      
-  end   
-  
+    end
+  end
+
   # If any of the page's connectables (portlets, etc) are renderable, they may have a render method
   # which does "controller" stuff, so we need to get that run before rendering the page.
   def prepare_connectables_for_render
@@ -112,7 +112,7 @@ class Cms::ContentController < Cms::ApplicationController
       worst_exception = nil
       @_connectables.each do |c|
         begin
-          c.prepare_to_render(self) 
+          c.prepare_to_render(self)
         rescue
           logger.debug "THROWN EXCEPTION by connectable #{c}: #{$!}"
           case $!
@@ -126,22 +126,22 @@ class Cms::ContentController < Cms::ApplicationController
         end
       end
       raise worst_exception if worst_exception
-    end 
-  end 
+    end
+  end
 
   # ----- Before Filters -------------------------------------------------------
   def construct_path
     @paths = params[:page_path] || params[:path] || []
     @path = "/#{@paths.join("/")}"
   end
-  
+
   def construct_path_from_route
     @_page_route = PageRoute.find(params[:_page_route_id])
     @path = @_page_route.page.path
     @initial_ivars = instance_variables
     eval @_page_route.code
   end
-  
+
   def redirect_non_cms_users_to_public_site
     @show_toolbar = false
     if perform_caching
@@ -167,20 +167,20 @@ class Cms::ContentController < Cms::ApplicationController
     @show_page_toolbar = @show_toolbar
     true
   end
-  
+
   def try_to_redirect
     if redirect = Redirect.find_by_from_path(@path)
       redirect_to redirect.to_path
-    end    
+    end
   end
 
   def try_to_stream_file
     split = @paths.last.to_s.split('.')
     ext = split.size > 1 ? split.last.to_s.downcase : nil
-    
+
     #Only try to stream cache file if it has an extension
     unless ext.blank?
-      
+
       #Check access to file
       @attachment = Attachment.find_live_by_file_path(@path)
       if @attachment
@@ -191,15 +191,15 @@ class Cms::ContentController < Cms::ApplicationController
 
         #Stream the file if it exists
         if @path != "/" && File.exists?(@file)
-          send_file(@file, 
+          send_file(@file,
             :filename => @attachment.file_name,
             :type => @attachment.file_type,
             :disposition => "inline"
-          ) 
-        end    
+          )
+        end
       end
     end
-    
+
   end
 
   def check_access_to_page
@@ -209,8 +209,8 @@ class Cms::ContentController < Cms::ApplicationController
       if page = Page.first(:conditions => {:path => @path})
         @page = page.as_of_draft_version
       else
-        return render(:layout => 'cms/application', 
-          :template => 'cms/content/no_page', 
+        return render(:layout => 'cms/application',
+          :template => 'cms/content/no_page',
           :status => :not_found)
       end
     else
@@ -239,18 +239,18 @@ class Cms::ContentController < Cms::ApplicationController
     end
 
   end
-    
+
   # ----- Other Methods --------------------------------------------------------
-  
+
   def page_not_found
     raise ActiveRecord::RecordNotFound.new("No page at '#{@path}'")
   end
 
   def set_page_mode
     @mode = @show_toolbar && current_user.able_to?(:edit_content) ? (params[:mode] || session[:page_mode] || "edit") : "view"
-    session[:page_mode] = @mode      
+    session[:page_mode] = @mode
   end
-  
-  
-  
+
+
+
 end

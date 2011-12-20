@@ -45,7 +45,7 @@
 
     # Populate the pages with some content.
 
-    welcome_content = "<p>Thank you for trying out this demo site. BrowserCMS is a open source content management system, written in Ruby on Rails. 
+    welcome_content = "<p>Thank you for trying out this demo site. BrowserCMS is a open source content management system, written in Ruby on Rails.
                     It's designed to be approachable for non-technical users, while allowing designers and developers to productively create
                     great looking sites which feature dynamic functionality</p>
                     <p>This demo site uses a theme (Blue Steel) with two templates (Home and Sub),
@@ -69,7 +69,7 @@
                   <li>Group Based Permissions</li>
                   <li>Rich Text Editing</li>
                   <li>Flexible Design Templates</li>
-                </ul>            
+                </ul>
                 "
     create_html_block(:features, :name => "Features", :content=>features, :connect_to_page_id => home_page.id, :connect_to_container => "side_bar_2")
 
@@ -80,7 +80,7 @@
     pages(:about).create_connector(html_blocks(:about_us), "main")
 
     create_dynamic_portlet(:recently_updated_pages,
-      :name => 'Recently Updated Pages',  
+      :name => 'Recently Updated Pages',
       :code => "@pages = Page.all(:order => 'updated_at desc', :limit => 3)",
       :template => <<-TEMPLATE
 <h2>Recent Updates</h2>

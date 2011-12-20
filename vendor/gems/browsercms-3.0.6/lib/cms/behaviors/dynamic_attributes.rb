@@ -120,7 +120,7 @@ module Cms
         def has_dynamic_attributes?
           !!@has_dynamic_attributes
         end
-        
+
         # Will make the current class have dynamic attributes.
         def has_dynamic_attributes(options={})
           @has_dynamic_attributes = true
@@ -338,7 +338,7 @@ module Cms
           end
           kls
         end
-        
+
         # This overrides the attributes= defined in ActiveRecord::Base
         # The only difference is that this doesn't check to see if the
         # model responds_to the method before sending it
@@ -360,7 +360,7 @@ module Cms
           end
 
           assign_multiparameter_attributes(multi_parameter_attributes)
-        end                         
+        end
       end
     end
   end

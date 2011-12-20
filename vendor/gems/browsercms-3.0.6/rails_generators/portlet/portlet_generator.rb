@@ -4,7 +4,7 @@ class PortletGenerator < Rails::Generator::NamedBase
     record do |m|
       portlet_class_name = "#{class_name}Portlet"
       portlet_file_name = "#{file_name}_portlet"
-      
+
       # Check for class naming collisions.
       m.class_collisions class_path, portlet_class_name
 

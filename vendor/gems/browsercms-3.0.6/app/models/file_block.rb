@@ -10,10 +10,10 @@ class FileBlock < AbstractFileBlock
 
   def set_attachment_section
     if @attachment_section_id && @attachment_section_id != attachment.section_id
-      attachment.section_id = @attachment_section_id 
+      attachment.section_id = @attachment_section_id
     end
   end
-  
+
   def self.display_name
     "File"
   end

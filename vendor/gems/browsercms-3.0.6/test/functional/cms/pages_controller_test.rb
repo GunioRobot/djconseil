@@ -15,10 +15,10 @@ class Cms::PagesControllerTest < ActionController::TestCase
 
   def test_edit
     create_page
-    
+
     # Make a change to the page, unpublished
     @page.update_attributes(:name => "V2")
-    
+
     get :edit, :id => @page.id
     assert_response :success
     assert_select "#page_name[value=?]", "V2"
@@ -27,30 +27,30 @@ class Cms::PagesControllerTest < ActionController::TestCase
   def test_unhide
 
     create_page
-    
+
     @page.update_attributes(:hidden => true)
     reset(:page)
-    
+
     assert @page.draft.hidden?
-    
+
     put :update, :id => @page.id, :page => {:hidden => false}
     assert_redirected_to [:cms, @page]
-    
+
     reset(:page)
     assert !@page.draft.hidden?
   end
 
   def test_publish
     create_page
-    
+
     assert !@page.published?
-    
+
     put :publish, :id => @page.to_param
     reset(:page)
 
     assert @page.published?
     assert_equal "Page 'Test' was published", flash[:notice]
-    
+
     assert_redirected_to @page.path
   end
 
@@ -58,7 +58,7 @@ class Cms::PagesControllerTest < ActionController::TestCase
     create_page
     @page.update_attributes(:name => "V2")
     @page.update_attributes(:name => "V3")
-    
+
     get :versions, :id => @page.to_param
     #log @response.body
     (1..3).each do |n|
@@ -76,12 +76,12 @@ class Cms::PagesControllerTest < ActionController::TestCase
   def test_revert_to
     create_page
     @page.update_attributes(:name => "V2")
-    @page.update_attributes(:name => "V3")      
+    @page.update_attributes(:name => "V3")
     reset(:page)
-    
+
     put :revert_to, :id => @page.to_param, :version => 1
     reset(:page)
-  
+
     assert_redirected_to @page.path
     assert !@page.published?
     assert_equal "Test", @page.name
@@ -90,7 +90,7 @@ class Cms::PagesControllerTest < ActionController::TestCase
 
   protected
     def create_page
-      @page = Factory(:page, :section => root_section, :name => "Test", :path => "test")      
+      @page = Factory(:page, :section => root_section, :name => "Test", :path => "test")
     end
 
 end
@@ -98,15 +98,15 @@ end
 class Cms::PagesControllerPermissionsTest < ActionController::TestCase
   tests Cms::PagesController
   include Cms::ControllerTestHelper
-  
-  def setup 
+
+  def setup
     # DRYME copypaste from UserPermissionTest
     @user = Factory(:user)
     @group = Factory(:group, :name => "Test", :group_type => Factory(:group_type, :name => "CMS User", :cms_access => true))
     @group.permissions << create_or_find_permission_named("edit_content")
     @group.permissions << create_or_find_permission_named("publish_content")
     @user.groups << @group
-    
+
     @editable_section = Factory(:section, :parent => root_section, :name => "Editable")
     @editable_subsection = Factory(:section, :parent => @editable_section, :name => "Editable Subsection")
     @group.sections << @editable_section
@@ -114,14 +114,14 @@ class Cms::PagesControllerPermissionsTest < ActionController::TestCase
     @editable_subpage = Factory(:page, :section => @editable_subsection, :name => "Editable SubPage")
     @editable_link = Factory(:link, :section => @editable_section, :name => "Editable Link")
     @editable_sublink = Factory(:link, :section => @editable_subsection, :name => "Editable SubLink")
-    
+
     @noneditable_section = Factory(:section, :parent => root_section, :name => "Not Editable")
     @noneditable_page = Factory(:page, :section => @noneditable_section, :name => "Non-Editable Page")
     @noneditable_link = Factory(:link, :section => @noneditable_section, :name => "Non-Editable Link")
-    
+
     @noneditables = [@noneditable_section, @noneditable_page, @noneditable_link]
-    @editables = [@editable_section, @editable_subsection, 
-      @editable_page, @editable_subpage, 
+    @editables = [@editable_section, @editable_subsection,
+      @editable_page, @editable_subpage,
       @editable_link, @editable_sublink]
   end
 
@@ -196,10 +196,10 @@ class Cms::PagesControllerPermissionsTest < ActionController::TestCase
     # publish many
     put :publish, :page_ids => [@editable_page.id]
     assert_response :redirect
-    
+
     put :publish, :page_ids => [@noneditable_page.id]
     assert_response 403
-    
+
     put :publish, :page_ids => [@editable_page.id, @noneditable_page.id]
     assert_response 403
 

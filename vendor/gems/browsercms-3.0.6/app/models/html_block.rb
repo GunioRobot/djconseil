@@ -1,12 +1,12 @@
 class HtmlBlock < ActiveRecord::Base
 
   acts_as_content_block :taggable => true
-  
+
   validates_presence_of :name
-  
-  # Override of search scope from searching behavior to deal with include_body 
+
+  # Override of search scope from searching behavior to deal with include_body
   named_scope :search, lambda{|search_params|
-    term = search_params.is_a?(Hash) ? search_params[:term] : search_params  
+    term = search_params.is_a?(Hash) ? search_params[:term] : search_params
     order = search_params.is_a?(Hash) && search_params[:order] ? search_params[:order] : "html_blocks.name"
     include_body = search_params.is_a?(Hash) ? search_params[:include_body] : false
     conditions = []
@@ -28,7 +28,7 @@ class HtmlBlock < ActiveRecord::Base
     scope[:order] = order if order
     scope
   }
-  
+
   def self.display_name
     "Text"
   end
@@ -36,5 +36,5 @@ class HtmlBlock < ActiveRecord::Base
   def self.display_name_plural
     "Text"
   end
-  
+
 end

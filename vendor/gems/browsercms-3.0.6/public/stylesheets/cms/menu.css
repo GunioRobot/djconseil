@@ -3,7 +3,7 @@ height: 10px;
 background: transparent url(/images/cms/menu/top_cap.png) no-repeat 0 0;
 }
 
-#menu { 
+#menu {
 float: left;
 /* background: #747D87; */
 width: 174px;
@@ -111,6 +111,6 @@ padding: 5px 8px 6px 9px;
 }
 
 #menu .bottom_pad {
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 
 }

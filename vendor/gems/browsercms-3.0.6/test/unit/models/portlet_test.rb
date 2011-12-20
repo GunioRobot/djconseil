@@ -9,7 +9,7 @@ class PortletTest < ActiveSupport::TestCase
   end
 
   def test_portlets_consistently_load_the_same_number_of_types
-    
+
     list = Portlet.types
     assert list.size > 0
 

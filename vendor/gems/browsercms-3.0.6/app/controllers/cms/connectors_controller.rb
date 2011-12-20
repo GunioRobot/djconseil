@@ -1,13 +1,13 @@
 class Cms::ConnectorsController < Cms::BaseController
-  
+
   before_filter :set_toolbar_tab
   before_filter :load_page, :only => [:new, :create]
-  
-  def new    
+
+  def new
     @block_type = ContentType.find_by_key(params[:block_type] || session[:last_block_type] || 'html_block')
     @container = params[:container]
     @connector = @page.connectors.build(:container => @container)
-    @blocks = @block_type.model_class.all(:order => "name", :conditions => ["deleted = ?", false])      
+    @blocks = @block_type.model_class.all(:order => "name", :conditions => ["deleted = ?", false])
   end
 
   def create
@@ -17,11 +17,11 @@ class Cms::ConnectorsController < Cms::BaseController
     if @page.create_connector(@block, params[:container])
       redirect_to @page.path
     else
-      @blocks = @block_type.model_class.all(:order => "name")      
+      @blocks = @block_type.model_class.all(:order => "name")
       render :action => 'new'
     end
   end
-  
+
   def destroy
     @connector = Connector.find(params[:id])
     @page = @connector.page
@@ -38,7 +38,7 @@ class Cms::ConnectorsController < Cms::BaseController
     :up => "up in",
     :down => "down in",
     :to_top => "to the top of",
-    :to_bottom => "to the bottom of"    
+    :to_bottom => "to the bottom of"
   }.each do |move, where|
     define_method "move_#{move}" do
       @connector = Connector.find(params[:id])
@@ -49,7 +49,7 @@ class Cms::ConnectorsController < Cms::BaseController
       else
         flash[:error] = "Failed to move '#{@connectable.name}' #{where} the '#{@connector.container}' container"
       end
-      redirect_to @page.path    
+      redirect_to @page.path
     end
   end
 

@@ -29,7 +29,7 @@ namespace :deploy do
   task :restart, :roles => :web do
     run "touch #{current_path}/tmp/restart.txt"
   end
-  
+
   task :start, :roles => :web do
     deploy.restart
   end

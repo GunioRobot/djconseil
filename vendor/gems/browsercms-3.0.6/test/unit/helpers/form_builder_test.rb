@@ -12,6 +12,6 @@ class FormBuilderTest < ActionView::TestCase
 
 
   test "Text field includes instructions" do
-    
+
   end
 end

@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '/../../test_helper')
 
 class Cms::MenuHelperTest < ActionView::TestCase
-  
+
   def test_menu_items
     Page.first.update_attributes(:hidden => true, :publish_on_save => true)
     create_nfl_data
@@ -20,12 +20,12 @@ class Cms::MenuHelperTest < ActionView::TestCase
         ] },
       { :id => "section_#{@nfc.id}", :url => "/dal", :name => "NFC" }
     ]
-    
+
     assert_equal expected, menu_items(:page => @bal)
 
     @page = @bal
     assert_equal expected, menu_items
-    
+
     expected = [
       { :id => "section_#{@afc.id}", :url => "/buf", :name => "AFC", :children => [
           { :id => "section_#{@afc_east.id}", :url => "/buf", :name => "East" },
@@ -35,9 +35,9 @@ class Cms::MenuHelperTest < ActionView::TestCase
         ] },
       { :id => "section_#{@nfc.id}", :url => "/dal", :name => "NFC" }
     ]
-    
+
     assert_equal expected, menu_items(:depth => 2)
-    
+
     expected = [
       { :id => "section_#{@afc_east.id}", :url => "/buf", :name => "East" },
       { :id => "section_#{@afc_north.id}", :url => "/bal", :name => "North", :children => [
@@ -49,9 +49,9 @@ class Cms::MenuHelperTest < ActionView::TestCase
       { :id => "section_#{@afc_south.id}", :url => "/hou", :name => "South" },
       { :id => "section_#{@afc_west.id}", :url => "/den", :name => "West" }
     ]
-    
+
     assert_equal expected, menu_items(:from_top => 1, :depth => 2)
-    
+
     expected = [
       { :id => "section_#{@afc.id}", :url => "/buf", :name => "AFC", :children => [
           { :id => "section_#{@afc_east.id}", :url => "/buf", :name => "East" },
@@ -66,43 +66,43 @@ class Cms::MenuHelperTest < ActionView::TestCase
           { :id => "section_#{@nfc_west.id}", :url => "/ari", :name => "West" }
         ] }
     ]
-    
+
     assert_equal expected, menu_items(:depth => 2, :show_all_siblings => true)
-    
+
     expected = [
       { :id => "section_#{@afc.id}", :url => "/buf", :name => "AFC" },
       { :id => "section_#{@nfc.id}", :url => "/dal", :name => "NFC" }
     ]
-    
+
     assert_equal expected, menu_items(:depth => 1)
-    
+
     expected = [
       { :id => "section_#{@afc_east.id}", :url => "/buf", :name => "East" },
       { :id => "section_#{@afc_north.id}", :url => "/bal", :name => "North" },
       { :id => "section_#{@afc_south.id}", :url => "/hou", :name => "South" },
       { :id => "section_#{@afc_west.id}", :url => "/den", :name => "West" }
     ]
-    
+
     assert_equal expected, menu_items(:from_top => 1, :depth => 1)
-    
+
     expected = [
       { :id => "section_#{@afc_east.id}", :url => "/buf", :name => "East" },
       { :id => "section_#{@afc_north.id}", :url => "/bal", :name => "North" },
       { :id => "section_#{@afc_south.id}", :url => "/hou", :name => "South" }
     ]
-    
+
     assert_equal expected, menu_items(:from_top => 1, :depth => 1, :limit => 3)
-    
+
   end
-  
+
   def test_menu_with_links
     Page.first.update_attributes(:hidden => true, :publish_on_save => true)
-    
+
     @news = Factory(:section, :parent => root_section, :name => "News", :path => "/whatever")
     @press_releases = Factory(:page, :section => @news, :name => "Press Releases", :path => "/press_releases", :publish_on_save => true)
     @corporate_news = Factory(:link, :section => @news, :name => "Corporate News", :url => "/news", :new_window => false, :publish_on_save => true)
     @cnn = Factory(:link, :section => @news, :name => "CNN", :url => "http://www.cnn.com", :new_window => true, :publish_on_save => true)
-    
+
     expected = [
       { :id => "section_#{@news.id}", :url => "/press_releases", :name => "News", :children => [
           { :id => "page_#{@press_releases.id}", :selected => true, :url => "/press_releases", :name => "Press Releases" },
@@ -110,7 +110,7 @@ class Cms::MenuHelperTest < ActionView::TestCase
           { :id => "link_#{@cnn.id}", :url => "http://www.cnn.com", :target => "_blank", :name => "CNN" }
         ] }
     ]
-    
+
     @page = @press_releases
     assert_equal expected, menu_items
     assert_equal [], menu_items(:from_top => 42)
@@ -121,30 +121,30 @@ class Cms::MenuHelperTest < ActionView::TestCase
     @page = Factory(:page, :section => @section, :name => "Overview", :path => "/test", :publish_on_save => true)
 
     @draft_page = Factory(:page, :section => @section, :name => "Draft v1", :path => "/draft", :publish_on_save => true)
-    @draft_page.update_attributes(:name => "Draft v2")    
+    @draft_page.update_attributes(:name => "Draft v2")
     @never_published = Factory(:page, :section => @section, :name => "Never Published", :path => "/never_published")
-    
+
     expected = [
       { :id => "page_#{@page.id}", :name => "Overview", :url => "/test", :selected => true },
       { :id => "page_#{@draft_page.id}", :name => "Draft v1", :url => "/draft" }
     ]
-    
+
     assert_equal expected, menu_items(:from_top => 1)
   end
-  
+
   def test_render_menu_with_path
     @test = Factory(:page, :section => root_section, :name => "Test", :path => "/test", :publish_on_save => true)
     @footer = Factory(:section, :parent => root_section, :name => "Footer", :path => "/footer")
     @about_us = Factory(:page, :section => @footer, :name => "About Us", :path => "/about_us", :publish_on_save => true)
     @contact_us = Factory(:page, :section => @footer, :name => "Contact Us", :path => "/contact_us", :publish_on_save => true)
     @privacy_policy = Factory(:page, :section => @footer, :name => "Privacy Policy", :path => "/privacy_policy", :publish_on_save => true)
-    
+
     expected = [
       { :id => "page_#{@about_us.id}", :url => "/about_us", :name => "About Us" },
       { :id => "page_#{@contact_us.id}", :url => "/contact_us", :name => "Contact Us" },
       { :id => "page_#{@privacy_policy.id}", :url => "/privacy_policy", :name => "Privacy Policy" }
     ]
-    
+
     actual = menu_items(:page => @test, :path => "/footer", :from_top => 1)
     assert_equal expected, actual
 
@@ -153,11 +153,11 @@ class Cms::MenuHelperTest < ActionView::TestCase
       { :id => "page_#{@contact_us.id}", :url => "/contact_us", :name => "Contact Us", :selected => true },
       { :id => "page_#{@privacy_policy.id}", :url => "/privacy_policy", :name => "Privacy Policy" }
     ]
-    
+
     actual = menu_items(:page => @contact_us, :path => "/footer", :from_top => 1)
     assert_equal expected, actual
   end
-  
+
   protected
     def create_nfl_data
       @afc = Factory(:section, :parent => root_section, :name => "AFC")
@@ -213,5 +213,5 @@ class Cms::MenuHelperTest < ActionView::TestCase
       @stl = Factory(:page, :section => @nfc_west, :name => "St. Louis Rams", :path => "/stl", :publish_on_save => true)
 
     end
-  
+
 end

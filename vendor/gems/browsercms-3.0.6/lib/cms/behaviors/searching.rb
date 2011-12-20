@@ -12,10 +12,10 @@ module Cms
           @is_searchable = true
           @searchable_columns = options[:searchable_columns] ? options[:searchable_columns].map(&:to_sym) : [:name]
           extend ClassMethods
-        
+
           #This is in a method to allow classes to override it
-          named_scope :search, lambda{|search_params| 
-            term = search_params.is_a?(Hash) ? search_params[:term] : search_params  
+          named_scope :search, lambda{|search_params|
+            term = search_params.is_a?(Hash) ? search_params[:term] : search_params
             order = search_params.is_a?(Hash) && search_params[:order] ? search_params[:order] : default_order_for_search
             conditions = []
             unless term.blank?
@@ -32,7 +32,7 @@ module Cms
             scope = {}
             scope[:conditions] = conditions if conditions
             scope[:order] = order if order
-            scope                      
+            scope
           }
         end
       end

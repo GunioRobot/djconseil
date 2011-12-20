@@ -2,33 +2,33 @@ module Cms
   module Behaviors
     module Attaching
       SANITIZATION_REGEXES = [ [/\s/, '_'], [/[&+()]/, '-'], [/[=?!'"{}\[\]#<>%]/, ''] ]
-      
+
       def self.included(model_class)
         model_class.extend(MacroMethods)
       end
-      module MacroMethods      
+      module MacroMethods
         def belongs_to_attachment?
           !!@belongs_to_attachment
         end
         def belongs_to_attachment(options={})
           @belongs_to_attachment = true
           include InstanceMethods
-          before_validation :process_attachment  
+          before_validation :process_attachment
           before_save :update_attachment_if_changed
           after_save :clear_attachment_ivars
-          belongs_to :attachment, :dependent => :destroy 
-          
+          belongs_to :attachment, :dependent => :destroy
+
           validates_each :attachment_file do |record, attr, value|
             if record.attachment && !record.attachment.valid?
               record.attachment.errors.each do |err_field, err_value|
                 if err_field.to_sym == :file_path
                   record.errors.add(:attachment_file_path, err_value)
-                else  
+                else
                   record.errors.add(:attachment_file, err_value)
                 end
-              end      
+              end
             end
-          end       
+          end
         end
       end
       module InstanceMethods
@@ -92,10 +92,10 @@ module Cms
             unless attachment_section_id.blank?
               errors.add(:attachment_file, "You must upload a file")
               return false
-            end              
+            end
           else
-            build_attachment if attachment.nil?  
-            attachment.temp_file = attachment_file 
+            build_attachment if attachment.nil?
+            attachment.temp_file = attachment_file
             set_attachment_file_path
             if attachment.file_path.blank?
               errors.add(:attachment_file_path, "File Name is required for attachment")
@@ -113,7 +113,7 @@ module Cms
           @attachment_file = nil
           @attachment_file_path = nil
           @attachment_section_id = nil
-          @attachment_section = nil            
+          @attachment_section = nil
         end
 
         # Override this method if you would like to override the way the section is set
@@ -168,16 +168,16 @@ module Cms
             (published? && live_version?) ? attachment_file_path : "/cms/attachments/#{attachment_id}?version=#{attachment_version}"
           else
             nil
-          end  
+          end
         end
-        
+
         # Forces this record to be changed, even if nothing has changed
         # This is necessary if just the section.id has changed, for example
         def dirty!
           # Seems like a hack, is there a better way?
           self.updated_at = Time.now
-        end          
-        
+        end
+
       end
     end
   end

@@ -36,5 +36,5 @@ class GeneratorsTest < Test::Unit::TestCase
     assert_equal "/Ruby/lib/ruby/gems/1.8/gems:local/browsercms-3.0.0/public/javascripts/jquery-ui.js", Cms.scrub_path(full_windows_path)
 
   end
- 
+
 end

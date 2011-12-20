@@ -26,14 +26,14 @@ class LoadSeedData < ActiveRecord::Migration
 
     groups(:content_admin).permissions<<permissions(:administrate)
     groups(:content_editor).permissions<<permissions(:edit_content)
-    groups(:content_editor).permissions<<permissions(:publish_content)    
-    
+    groups(:content_editor).permissions<<permissions(:publish_content)
+
     create_site(:default, :name => "Default", :domain => "example.com")
     create_section(:root, :name => "My Site", :path => "/", :root => true)
     create_section(:system, :name => "system", :parent => sections(:root), :path => "/system", :hidden => true)
-        
-    Group.all.each{|g| g.sections = Section.all }    
-    
+
+    Group.all.each{|g| g.sections = Section.all }
+
     create_page(:home, :name => "Home", :path => "/", :section => sections(:root), :template_file_name => "default.html.erb", :cacheable => true)
     create_page(:not_found, :name => "Page Not Found", :path => "/system/not_found", :section => sections(:system), :template_file_name => "default.html.erb", :publish_on_save => true, :hidden => true, :cacheable => true)
     create_page(:access_denied, :name => "Access Denied", :path => "/system/access_denied", :section => sections(:system), :template_file_name => "default.html.erb", :publish_on_save => true, :hidden => true, :cacheable => true)
@@ -51,8 +51,8 @@ class LoadSeedData < ActiveRecord::Migration
     pages(:server_error).create_connector(html_blocks(:server_error), "main")
     pages(:server_error).publish!
 
-    create_page_template(:default, 
-      :name => "default", :format => "html", :handler => "erb", 
+    create_page_template(:default,
+      :name => "default", :format => "html", :handler => "erb",
       :body => <<-HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -67,7 +67,7 @@ class LoadSeedData < ActiveRecord::Migration
       Breadcrumbs: <%= render_breadcrumbs %>
       Main Menu: <%= render_menu %>
       <h1><%= @page_title %></h1>
-      <p>BrowserCMS has been installed successfully.</p> 
+      <p>BrowserCMS has been installed successfully.</p>
 
       <h2>Getting Started</h2>
       <p>To start building your site, you can either <%= link_to "alter this template", edit_cms_page_template_path(PageTemplate.find_by_file_name("default.html.erb")) %> or <%= link_to "create a new one", new_cms_page_template_path %>.  You will be prompted to login with the credentials provided during the install process.  To change which template the pages use, you can click the 'Edit Properties' button above, and choose a different template. After all pages in the site, use the new template, you can safely delete this one.</p>
@@ -78,13 +78,13 @@ class LoadSeedData < ActiveRecord::Migration
 </html>
 HTML
     )
-    
-    pages(:home).publish! 
-        
-    puts "*************************************************"    
-    puts "* YOUR CMS username/password is: cmsadmin/#{pwd}"    
+
+    pages(:home).publish!
+
     puts "*************************************************"
-        
+    puts "* YOUR CMS username/password is: cmsadmin/#{pwd}"
+    puts "*************************************************"
+
   end
 
   def self.down

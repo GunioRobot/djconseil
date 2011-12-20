@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <title><%= page_title %> | DJ Conseil.fr</title>
     <%= yield :html_head %>
-    
+
     <%= render :partial => "layouts/shared/javascripts" %>
     <%= render :partial => "layouts/shared/stylesheets" %>
   </head>
@@ -13,22 +13,22 @@
     <div id="wrapper">
       <div id="page">
         <%= render :partial => "layouts/shared/header" %>
-      
+
         <div id="lhs" class="sidebar">
           <%= container :sidebar %>
-          
+
           <%= render :partial => "layouts/shared/latest_news" %>
         </div>
-        
+
         <div id="body" class="page">
           <div class="formatted block">
             <h1><%= @page_title %></h1>
-            
+
             <%= container :main %>
           </div>
         </div>
       </div>
-      
+
       <%= render :partial => "layouts/shared/footer" %>
     </div>
   </body>

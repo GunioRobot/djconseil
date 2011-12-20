@@ -7,7 +7,7 @@
       }, function(){
         $(this).removeClass('hover')
       }).click(function(){
-        var match = this.id.match(/(.*)_(\d+)/) 
+        var match = this.id.match(/(.*)_(\d+)/)
         var type = match[1];
         var id = match[2];
         $('table.data tbody tr').removeClass('selected');

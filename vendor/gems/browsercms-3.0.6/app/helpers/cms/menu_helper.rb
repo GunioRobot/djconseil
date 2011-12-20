@@ -1,10 +1,10 @@
 module Cms
   module MenuHelper
     # Renders a menu. There are two options, neither are required:
-    # 
+    #
     # ==== Options
-    # * <tt>:items</tt> - The items which should appear in the menu. This defaults to calling 
-    #   menu_items which generates items automatically based on the current page. But you can use 
+    # * <tt>:items</tt> - The items which should appear in the menu. This defaults to calling
+    #   menu_items which generates items automatically based on the current page. But you can use
     #   this option to pass in a custom menu structure.
     # * <tt>:partial</tt> - The partial used to render the menu. By default this is "partials/menu",
     #   which can be customised through the CMS. The partial gets a local variable <tt>items</tt>.
@@ -13,7 +13,7 @@ module Cms
     #
     # The items should be an array of hashes, in a tree. Each hash can have the following keys (name
     # and url are required, others are optional):
-    # 
+    #
     # * <tt>:name</tt> - The name which appears in the menu
     # * <tt>:url</tt> - The URL to link to
     # * <tt>:id</tt> - The id for the menu item
@@ -28,37 +28,37 @@ module Cms
       options[:class] ||= "menu"
       render :partial => options[:partial], :locals => { :items => options[:items], :css_id => options[:id], :css_class => options[:class] }
     end
-    
+
     # This will render generate an array-of-hashes tree structure based on the page, which can be
     # passed to render_menu in order to generate a menu.
-    # 
-    # With no options passed, it will generate a structure that includes all the child sections of 
+    #
+    # With no options passed, it will generate a structure that includes all the child sections of
     # the root and then it will include the path of decendent sections all the way to the current
     # page.
-    # 
+    #
     # Hidden pages will not be included, but if the first page in a Section is hidden, it will be
     # used as the URL for that Section. This is commonly done to have a page for a Section and avoid
     # having duplicates in the navigation.
-    # 
+    #
     # You can change the behavior with the following options, all of these are optional:
     #
     # ==== Options
-    # * <tt>:page</tt> - What page should be used as the current page.  If this value is omitted, 
+    # * <tt>:page</tt> - What page should be used as the current page.  If this value is omitted,
     #   the value in @page will be used.
-    # * <tt>:path</tt> - This will be used to look up a section and that section will used to 
+    # * <tt>:path</tt> - This will be used to look up a section and that section will used to
     #   generate the menu structure. The current page will still be the value of the page option or
     #   @page. Note that this is the path to a section, not a path to a page.
-    # * <tt>:from_top</tt> - How many below levels from the root the tree should start at.  
+    # * <tt>:from_top</tt> - How many below levels from the root the tree should start at.
     #   All sections at this level will be shown.  The default is 0, which means show all
     #   nodes that are direct children of the root
-    # * <tt>:depth</tt> - How many levels deep should the tree go, relative to from_top.  
+    # * <tt>:depth</tt> - How many levels deep should the tree go, relative to from_top.
     #   If no value is supplied, the tree will go all the way down to the current page.
     #   If a value is supplied, the tree will be that many levels underneath from_top deep.
     # * <tt>:limit</tt> - Limits the number of top-level elements that will be included in the list
     # * <tt>:show_all_siblings</tt> - Passing true for this option will make all sibilings appear in
     #   the tree. The default is false, in which case only the siblings of nodes within the open
     #   path will appear.
-    # 
+    #
     # ==== Examples
     #
     # Assume you have the structure the NFL, which is NFL > Conference > Division > Team,
@@ -100,7 +100,7 @@ module Cms
       # Intialize parameters
       selected_page = options[:page] || @page
       return nil unless selected_page
-      
+
       # Path to the section
       if options.has_key?(:path)
         section_for_path = Section.find_by_path(options[:path])
@@ -109,32 +109,32 @@ module Cms
       else
         ancestors = selected_page.ancestors
       end
-      
+
       if options.has_key?(:from_top)
         ancestors = ancestors[options[:from_top].to_i..-1] || []
       end
-      
+
       depth = options.has_key?(:depth) ? options[:depth].to_i : 1.0/0
       show_all_siblings = options[:show_all_siblings] || false
-      
+
       # We are defining a recursive lambda that takes the top-level sections
       fn = lambda do |section_nodes, current_depth|
         section_nodes.map do |section_node|
           node = section_node.node
-          
+
           item = {}
           item[:selected] = true if selected_page == node
           item[:id] = "#{section_node.node_type.underscore}_#{section_node.node_id}"
-          
+
           # If we are showing a section item, we want to use the path for the first page
           page = section_node.section? ? node.first_page_or_link : node
-          
+
           item[:url] = page && page.path || '#'
           item[:name] = node.name
           item[:target] = "_blank" if page.respond_to?(:new_window?) && page.new_window?
-          
-          # Now if this is a section, we do the child nodes, 
-          # but only if the show_all_siblings parameter is true, 
+
+          # Now if this is a section, we do the child nodes,
+          # but only if the show_all_siblings parameter is true,
           # or if this section is one of the current page's ancestors
           # and also if the current depth is less than the target depth
           if section_node.section? &&
@@ -143,11 +143,11 @@ module Cms
              !node.visible_child_nodes.empty?
             item[:children] = fn.call(node.visible_child_nodes, current_depth + 1)
           end
-          
+
           item
         end
       end
-      
+
       if ancestors.empty?
         []
       else

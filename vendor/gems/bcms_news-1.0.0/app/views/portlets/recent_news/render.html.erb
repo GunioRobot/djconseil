@@ -11,9 +11,9 @@
       <b><%= article.release_date.to_date.to_s(:long) %></b>
       <br/>
     <% end %>
-  
+
     <%= link_to h(article.name), news_article_path(article.route_params) %>
-    
+
   </div>
 <% end %>
 

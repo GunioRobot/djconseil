@@ -7,44 +7,43 @@ fr:
       # Use the strftime parameters for formats.
       # When no format has been given, it uses default.
       # You can provide other formats here if you like!
-      default: "%d/%m/%Y" 
-      short: "%a%e %B" 
+      default: "%d/%m/%Y"
+      short: "%a%e %B"
       long: "%A%e %B %Y"
       month_year: "%B %Y"
-      
+
     day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
     abbr_day_names: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
-    
+
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
     month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
     abbr_month_names: [~, Jan, Fév, Mar, Avr, Mai, Juin, Juil, Août, Sept, Oct, Nov, Déc]
     # Used in date_select and datime_select.
     order: [ :day, :month, :year ]
-  
+
   time:
     formats:
-      default: "%d/%m/%Y à %Hh%M" 
-      short: "%a%e %b à %Hh%M" 
+      default: "%d/%m/%Y à %Hh%M"
+      short: "%a%e %b à %Hh%M"
       long: "%A%e %B %Y à %Hh%M"
       month_year: "%B %Y"
-    am: "am" 
+    am: "am"
     pm: "pm"
-  
+
   # Used in array.to_sentence.
   support:
     array:
       sentence_connector: "et"
-  
+
   number:
     format:
       separator: ","
       delimiter: "."
       precision: 2
-    
+
     currency:
       format:
         format: "%n %u"
         unit: "€"
-    
+
   hello: "Hello world"
-  

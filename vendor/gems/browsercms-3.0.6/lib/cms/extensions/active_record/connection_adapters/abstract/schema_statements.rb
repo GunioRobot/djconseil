@@ -26,7 +26,7 @@ module ActiveRecord
         t.integer :created_by_id
         t.integer :updated_by_id
         t.timestamps
-        
+
         create_table_from_definition(table_name, options, t)
 
         unless options[:versioned] == false
@@ -43,7 +43,7 @@ module ActiveRecord
 
           vt.boolean :published, :default => false
           vt.boolean :deleted, :default => false
-          vt.boolean :archived, :default => false        
+          vt.boolean :archived, :default => false
           vt.string :version_comment
           vt.integer :created_by_id
           vt.integer :updated_by_id
@@ -51,8 +51,8 @@ module ActiveRecord
 
           create_table_from_definition("#{table_name.to_s.singularize}_versions".to_sym, options, vt)
         end
-        
-      end   
+
+      end
 
       #
       # @deprecated - create_versioned_table should be considered deprecated and may be removed in a future version.
@@ -69,9 +69,9 @@ module ActiveRecord
         create_sql << "#{quote_table_name(table_name)} ("
         create_sql << table_definition.to_sql
         create_sql << ") #{options[:options]}"
-        execute create_sql            
+        execute create_sql
       end
-      
+
       def drop_versioned_table(table_name)
         drop_table "#{table_name.singularize}_versions".to_sym
         drop_table table_name

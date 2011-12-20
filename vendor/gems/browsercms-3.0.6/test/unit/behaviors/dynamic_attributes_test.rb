@@ -3,11 +3,11 @@ require File.join(File.dirname(__FILE__), '/../../test_helper')
 ActiveRecord::Base.connection.instance_eval do
   drop_table(:things) if table_exists?(:things)
   drop_table(:thing_attributes) if table_exists?(:thing_attributes)
-  create_table(:things) do |t| 
+  create_table(:things) do |t|
     t.string :name
     t.timestamps
   end
-  create_table(:thing_attributes) do |t| 
+  create_table(:thing_attributes) do |t|
     t.integer :thing_id
     t.string :name
     t.text :value

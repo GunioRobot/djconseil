@@ -401,7 +401,7 @@ class Cms::ContentCachingDisabledControllerTest < ActionController::TestCase
     @page = Factory(:page, :section => root_section, :path => "/about", :name => "Test About", :template_file_name => "default.html.erb", :publish_on_save => true)
     @portlet_render = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :template => '<p id="hi">hello</p>')
     @portlet_raise_not_found = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :code => 'raise ActiveRecord::RecordNotFound')
-    @portlet_raise_access_denied = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :code => 'raise Cms::Errors::AccessDenied')   
+    @portlet_raise_access_denied = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :code => 'raise Cms::Errors::AccessDenied')
     @portlet_raise_generic = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :code => 'raise')
     reset(:page)
 
@@ -413,7 +413,7 @@ class Cms::ContentCachingDisabledControllerTest < ActionController::TestCase
   def test_portlets_throw_multiple_goes_to_access_denied
     @page = Factory(:page, :section => root_section, :path => "/about", :name => "Test About", :template_file_name => "default.html.erb", :publish_on_save => true)
     @portlet_render = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :template => '<p id="hi">hello</p>')
-    @portlet_raise_access_denied = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :code => 'raise Cms::Errors::AccessDenied')   
+    @portlet_raise_access_denied = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :code => 'raise Cms::Errors::AccessDenied')
     @portlet_raise_generic = DynamicPortlet.create!(:name => "Test", :connect_to_page_id => @page.id, :connect_to_container => "main", :code => 'raise')
     reset(:page)
 

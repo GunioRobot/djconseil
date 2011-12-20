@@ -60,13 +60,13 @@ font-size: 12px;
 }
 
 .checkbox_group label {
-  width: 140px; 
-  float: left; 
+  width: 140px;
+  float: left;
   padding: 12px 0;
 }
 
 .checkbox_group .checkboxes {
-  float: left; 
+  float: left;
   width: 445px;
   padding-top: 12px;
 }
@@ -88,7 +88,7 @@ border: 1px solid #CCC;
 .checkbox_group {
 padding: 8px 0;
 }
- 
+
 .text_fields input, .select_fields input,
 .textarea_fields textarea, .file_fields input.mock {
 width:445px;
@@ -111,7 +111,7 @@ margin-left: 380px;
 }
 .text_editor_fields .selectbox{
 font-size: 8pt;
-color:#485561; 
+color:#485561;
 border: 1px solid #CCCCCC;
 height: 16px;
 margin-left: 397px;
@@ -262,11 +262,11 @@ color: red;
 margin: 8px 0;
 }
 
-.instructions { 
-  color: #666; 
-  font-style: italic; 
-  font-size: 80%; 
-  font-weight: normal; 
+.instructions {
+  color: #666;
+  font-style: italic;
+  font-size: 80%;
+  font-weight: normal;
   padding-top: 5px;
   float: left;
   clear: left;
@@ -276,8 +276,8 @@ margin: 8px 0;
 .checkboxes .instructions {
   margin-left: 0;
 }
-#file_block_attachment_file, #image_block_attachment_file { 
-height: 30px; 
+#file_block_attachment_file, #image_block_attachment_file {
+height: 30px;
 margin-left: 364px;
 * margin-left: 352px;
 }

@@ -16,8 +16,8 @@ module Cms
           attr_accessor :connect_to_page_id
           attr_accessor :connect_to_container
           attr_accessor :connected_page
-        
-          has_many :connectors, :as => :connectable    
+
+          has_many :connectors, :as => :connectable
 
           attr_accessor :updated_by_page
 
@@ -34,7 +34,7 @@ module Cms
         end
         def display_name_plural
           display_name.pluralize
-        end                
+        end
       end
       module InstanceMethods
 
@@ -57,28 +57,28 @@ module Cms
         def display_name_plural
           self.class.display_name_plural
         end
-      
+
         def connect_to_page
           unless connect_to_page_id.blank? || connect_to_container.blank?
-            #Note that we are setting connected_page so that page can look at that 
-            #to determine if the page should be published            
+            #Note that we are setting connected_page so that page can look at that
+            #to determine if the page should be published
             self.connected_page = Page.find(connect_to_page_id)
             connected_page.create_connector(self, connect_to_container)
           end
           true
-        end        
-      
+        end
+
         def update_connected_pages
           # If this is versioned, then we need make new versions of all the pages this is connected to
-          if self.class.versioned? 
+          if self.class.versioned?
             #logger.info "..... Updating connected pages for #{self.class} #{id} v#{version}"
 
             #Get all the pages the previous version of this connectable was connected to
-            draft_version = draft.version            
+            draft_version = draft.version
             Page.connected_to(:connectable => self, :version => (draft_version - 1)).all.each do |p|
               # This is needed in the case of updating page,
               # which updates this object, so as not to create a loop
-              if p != updated_by_page              
+              if p != updated_by_page
                 #This just creates a new version of the page
                 action = deleted? ? "Deleted" : "Edited"
                 p.update_attributes(:version_comment => "#{self.class.name} ##{id} was #{action}")
@@ -92,7 +92,7 @@ module Cms
             end
           end
           true
-        end        
+        end
       end
     end
   end

@@ -15,9 +15,9 @@ module Cms
           is_searchable(options[:searchable].is_a?(Hash) ? options[:searchable] : {}) unless options[:searchable] == false
           uses_soft_delete(options[:soft_delete].is_a?(Hash) ? options[:soft_delete] : {}) unless options[:soft_delete] == false
           is_taggable(options[:taggable].is_a?(Hash) ? options[:taggable] : {}) if options[:taggable]
-          is_userstamped(options[:userstamped].is_a?(Hash) ? options[:userstamped] : {}) unless options[:userstamped] == false  
+          is_userstamped(options[:userstamped].is_a?(Hash) ? options[:userstamped] : {}) unless options[:userstamped] == false
           is_versioned(options[:versioned].is_a?(Hash) ? options[:versioned] : {}) unless options[:versioned] == false
-        
+
           include InstanceMethods
         end
         module InstanceMethods

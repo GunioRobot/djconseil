@@ -13,28 +13,28 @@
         margin: 0;
         padding: 0;
       }
-  
+
       #page {
         margin: 0 auto;
         text-align: left;
         width: 1000px;
       }
-  
+
       #header {
         height: 110px;
       }
-  
+
       div.top_cap {
         background: transparent url(images/top_cap.png) no-repeat scroll 0 0;
         height: 10px;
-      }    
-  
+      }
+
       #contentwrap {
         background: transparent url(images/dot.png) repeat scroll 0 0;
         float: left;
         width: 1000px;
       }
-      
+
       div.bottom_cap {
         background: transparent url(images/bottom_cap.png) no-repeat scroll 0 0;
         height: 9px;
@@ -44,17 +44,17 @@
         background: transparent url(images/top_cap_content.png) no-repeat scroll 0 0;
         height: 5px;
       }
-  
+
       #content {
         background-color: #FFFFFF;
         margin: 0 5px;
         padding: 0 10px;
       }
-  
+
       div.title {
         padding: 20px;
       }
-  
+
       div.title h1 {
         border-bottom: 3px solid #505358;
         color: #FFFFFF;
@@ -64,35 +64,35 @@
         margin: 0 0 10px;
         padding-bottom: 10px;
       }
-      
+
       td.sidebar {
         font-size: 8pt;
         width: 165px;
         padding: 5px;
       }
-      
+
       td.sidebar ol {
         margin-left: 20px;
         padding: 0;
         line-height: 1.5;
       }
-      
+
       td.sidebar ol li {
         margin: 0;
         padding: 0;
       }
-      
+
       td.sidebar ol li ul {
         list-style-type: none;
         padding-left: 10px;
       }
-      
+
       td.guides {
         font-size: 10pt;
         width: 800px;
         padding: 10px;
       }
-      
+
       .code_container {
         padding: 10px;
         background: #eee;
@@ -100,12 +100,12 @@
         overflow: auto;
         width: 760px;
       }
-      
+
       pre, code {
         overflow: auto;
-        white-space:pre;        
+        white-space:pre;
       }
-      
+
     </style>
   </head>
   <body>
@@ -122,7 +122,7 @@
           <div class="top_cap_content"></div>
           <div id="content">
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
-              <tr>                
+              <tr>
                 <td class="sidebar" valign="top">
                         <div id="subCol">
         <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
@@ -231,22 +231,22 @@ end</code></div>
 <p>Every portlet instance has to have a name and that is stored in the main <tt>portlets</tt> table, but <tt>limit</tt> is stored in the <tt>portlet_attributes</tt> table.  You could add anything to this form, such as <tt>&lt;%= f.cms_text_field :foobar %&gt;</tt>, and whatever the user enters for <tt>foobar</tt> would get saved with the portlet.</p>
 <p>If you look at the code for the portlet, you will see:</p>
 <div class="code_container"><code class="ruby">class RecentProducts &lt; Portlet
-    
+
   def render
     # Your Code Goes Here
   end
-    
+
 end</code></div>
 <p>As the comment says, you will want to fill in your application logic here.  We&#8217;re going to get the most recent products and use the value the user entered for limit when they filled out the form.  So edit the code to look like:</p>
 <div class="code_container"><code class="ruby">class RecentProducts &lt; Portlet
-    
+
   def render
     @products = Product.all(:order =&gt; &quot;created_at desc&quot;, :limit =&gt; self.limit)
   end
-    
+
 end</code></div>
-<p><code>self</code> in this case is the portlet instance, which is also available in the instance variable 
-<code>@portlet</code>.  
+<p><code>self</code> in this case is the portlet instance, which is also available in the instance variable
+<code>@portlet</code>.
 We are setting the <code>@products</code> instance variable so that will be available in the view.  If you look at the render template, you will see this:</p>
 <div class="code_container"><code class="html">&lt;%=h @portlet.name %&gt;</code></div>
 <p>This is simply a place holder, you should override this code with something similar to what you expect the user of your portlet to want to use.  In this case, let&#8217;s go with:</p>
